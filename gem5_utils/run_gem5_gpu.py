@@ -16,9 +16,9 @@ def run(bench, l2_size, l2_assoc, num_threads):
     os.system('rm -fr ' + dir)
     os.system('mkdir -p ' + dir)
 
-    cmd_run = '../gem5/build/X86_VI_hammer_GPU/gem5.opt -d ' + dir + ' ../gem5-gpu/configs/se_fusion.py' \
+    cmd_run = '../gem5/build/X86_MESI_Two_Level_GPU/gem5.opt -d ' + dir + ' ../gem5-gpu/configs/se_fusion.py' \
               + ' --clusters=2' \
-              + ' -c ' + '/home/zhangbowen/gem5-gpu/benchmarks/rodinia' + bench + " -o 16" \
+              + ' -c ' + '/home/zhangbowen/gem5-gpu/benchmarks/rodinia/' + bench + " -o 16" \
               + ' --cpu-type=timing --num-cpus=' + str(num_threads) \
               + ' --caches --l2cache --num-l2caches=1' \
               + ' --l1d_size=32kB --l1i_size=32kB --l2_size=' + l2_size + ' --l2_assoc=' + str(l2_assoc)
@@ -60,7 +60,7 @@ def add_experiments(bench):
 #~ add_experiments('/nn/gem5_fusion_nn')
 #~ add_experiments('/cell/gem5_fusion_cell')
 #~ add_experiments('/heartwall/gem5_fusion_heartwall')
-add_experiments('/backprop/gem5_fusion_backprop')
+add_experiments('backprop/gem5_fusion_backprop')
 # add_tasks('ferret')
 # add_tasks('fluidanimate')
 # add_tasks('freqmine')
