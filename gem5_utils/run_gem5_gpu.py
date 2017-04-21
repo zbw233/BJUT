@@ -17,6 +17,7 @@ def run(bench, l2_size, l2_assoc, num_threads):
     os.system('mkdir -p ' + dir)
 
     cmd_run = '../gem5/build/X86_VI_hammer_GPU/gem5.opt -d ' + dir + ' ../gem5-gpu/configs/se_fusion.py' \
+              + ' --clusters=2' \
               + ' -c ' + '/home/zhangbowen/gem5-gpu/benchmarks/rodinia' + bench + " -o 16" \
               + ' --cpu-type=timing --num-cpus=' + str(num_threads) \
               + ' --caches --l2cache --num-l2caches=1' \
@@ -47,7 +48,7 @@ def add_experiment(bench, l2_size, l2_assoc, num_threads):
 
 
 def add_experiments(bench):
-    add_experiment(bench, '256kB', 8, 4)
+    add_experiment(bench, '256kB', 8, 2)
     #~ add_experiment(bench, '512kB', 8, 4)
     #~ add_experiment(bench, '1MB', 8, 4)
     #~ add_experiment(bench, '2MB', 8, 4)
