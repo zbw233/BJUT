@@ -4,7 +4,7 @@ from gem5_utils import parse_result, to_csv, generate_plot
 # Define benchmark names.
 benchmarks = [
     'cell/gem5_fusion_cell',
-    #~ 'bodytrack',
+    'backprop/gem5_fusion_cell',
     #~ 'canneal',
     #~ 'dedup',
     # 'facesim',

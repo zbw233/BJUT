@@ -56,10 +56,10 @@ def add_experiments(bench):
 
 
 #~ add_experiments('/backprop/gem5_fusion_backprop')
-add_experiments('/nn/gem5_fusion_nn')
+#~ add_experiments('/nn/gem5_fusion_nn')
 #~ add_experiments('/cell/gem5_fusion_cell')
 #~ add_experiments('/heartwall/gem5_fusion_heartwall')
-# add_tasks('facesim')
+add_experiments('/backprop/gem5_fusion_backprop')
 # add_tasks('ferret')
 # add_tasks('fluidanimate')
 # add_tasks('freqmine')
