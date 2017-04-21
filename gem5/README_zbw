@@ -1,0 +1,3 @@
+build/X86_VI_hammer_GPU/gem5.opt ../gem5-gpu/configs/se_fusion.py -c /home/zhangbowen/gem5-gpu/benchmarks/rodinia-nocopy/backprop/gem5_fusion_backprop -o 16
+build/X86_VI_hammer_GPU/gem5.opt ../gem5-gpu/configs/se_fusion.py -c /home/zhangbowen/gem5-gpu/benchmarks/rodinia-nocopy/mummergpu/gem5_fusion_mummer -o 16
+build/X86_VI_hammer_GPU/gem5.opt ../gem5-gpu/configs/se_fusion.py -c /home/zhangbowen/gem5-gpu/benchmarks/rodinia-nocopy/heartwall/gem5_fusion_heartwall -o 16
