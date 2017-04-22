@@ -9,16 +9,23 @@
 import os
 import multiprocessing as mp
 
+class benchmarks:
+    arg=''
+    name=''
+   
+    def __init__(self, arg, name):
+        self.name=name
+        self.arg=arg
 
 def run(bench, l2_size, l2_assoc, num_threads):
-    dir = 'results/' + bench + '/' + l2_size + '/' + str(l2_assoc) + 'way/' + str(num_threads) + 'c/'
+    dir = 'results/' + bench.name + '/' + l2_size + '/' + str(l2_assoc) + 'way/' + str(num_threads) + 'c/'
 
     os.system('rm -fr ' + dir)
     os.system('mkdir -p ' + dir)
 
     cmd_run = '../gem5/build/X86_MESI_Two_Level_GPU/gem5.opt -d ' + dir + ' ../gem5-gpu/configs/se_fusion.py' \
-              + ' --clusters=2' \
-              + ' -c ' + '/home/zhangbowen/gem5-gpu/benchmarks/rodinia/' + bench + " -o 16" \
+              + ' --clusters=4' \
+              + ' -c ' + '/home/zhangbowen/gem5-gpu/benchmarks/rodinia/' + bench.name + bench.arg \
               + ' --cpu-type=timing --num-cpus=' + str(num_threads) \
               + ' --caches --l2cache --num-l2caches=1' \
               + ' --l1d_size=32kB --l1i_size=32kB --l2_size=' + l2_size + ' --l2_assoc=' + str(l2_assoc)
@@ -55,12 +62,15 @@ def add_experiments(bench):
     #~ add_experiment(bench, '4MB', 8, 4)
     #~ add_experiment(bench, '8MB', 8, 4)
 
+def initbench(arg, name):
+    bench=benchmarks(arg, name)
+    add_experiments(bench)
 
-#~ add_experiments('/backprop/gem5_fusion_backprop')
-#~ add_experiments('/nn/gem5_fusion_nn')
-#~ add_experiments('/cell/gem5_fusion_cell')
-#~ add_experiments('/heartwall/gem5_fusion_heartwall')
-add_experiments('backprop/gem5_fusion_backprop')
+
+#~ initbench(' -o "filelist_4 -r 5 -lat 30 -lng 90"', 'nn/gem5_fusion_nn')
+#~ initbench(' ', 'cell/gem5_fusion_cell')
+#~ initbench(' ', 'heartwall/gem5_fusion_heartwall')
+initbench(' -o 512', 'backprop/gem5_fusion_backprop')
 # add_tasks('ferret')
 # add_tasks('fluidanimate')
 # add_tasks('freqmine')
@@ -68,5 +78,8 @@ add_experiments('backprop/gem5_fusion_backprop')
 # add_tasks('swaptions')
 # add_tasks('vips')
 # add_tasks('x264')
+
+
+   
 
 run_experiments()
