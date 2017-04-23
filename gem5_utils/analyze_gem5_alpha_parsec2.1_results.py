@@ -3,8 +3,8 @@ from gem5_utils import parse_result, to_csv, generate_plot
 
 # Define benchmark names.
 benchmarks = [
-    'cell/gem5_fusion_cell',
-    'backprop/gem5_fusion_cell',
+    #~ 'cell/gem5_fusion_cell',
+    'backprop/gem5_fusion_backprop',
     #~ 'canneal',
     #~ 'dedup',
     # 'facesim',
@@ -28,7 +28,7 @@ def parse_results_l2_sizes():
         for l2_size in ['256kB']:
             results.append(
                 parse_result('results/' +
-                             benchmark + '/' + l2_size + '/8way/4c/',
+                             benchmark + '/' + l2_size + '/8way/2c/',
                              benchmark=benchmark,
                              l2_size=l2_size)
             )
@@ -36,16 +36,17 @@ def parse_results_l2_sizes():
     to_csv('results/l2_sizes.csv', results, [
         ('Benchmark', lambda r: r.props['benchmark']),
         ('L2 Size', lambda r: r.props['l2_size']),
-        ('L2 Miss Rate', lambda r: r.stats[2]['system.l2.overall_miss_rate::total']),
-        ('# Cycles', lambda r: r.stats[2]['system.switch_cpus0.numCycles'])
+        ('L2 Miss', lambda r: r.stats[2]['system.ruby.l2_cntrl0.L2cache.demand_misses']),
+        ('L2 accesses', lambda r: r.stats[2]['system.ruby.l2_cntrl0.L2cache.demand_accesses']),
+        ('# Cycles', lambda r: r.stats[2]['system.cpu0.numCycles'])
     ])
 
-    generate_plot('results/l2_sizes.csv',
-                  'results/l2_sizes_vs_l2_miss_rate.pdf', 'Benchmark', 'L2 Miss Rate',
-                  'L2 Size', 'L2 Miss Rate')
-    generate_plot('results/l2_sizes.csv',
-                  'results/l2_sizes_vs_num_cycles.pdf', 'Benchmark', '# Cycles',
-                  'L2 Size', '# Cycles')
+    #~ generate_plot('results/l2_sizes.csv',
+                  #~ 'results/l2_sizes_vs_l2_miss_rate.pdf', 'Benchmark', 'L2 Miss',
+                  #~ 'L2 Size', 'L2 Miss')
+    #~ generate_plot('results/l2_sizes.csv',
+                  #~ 'results/l2_sizes_vs_num_cycles.pdf', 'Benchmark', '# Cycles',
+                  #~ 'L2 Size', '# Cycles')
 
     return results
 

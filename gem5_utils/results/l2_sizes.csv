@@ -1,1 +1,1 @@
-"Benchmark","L2 Size","L2 Miss Rate","# Cycles"
+"Benchmark","L2 Size","L2 Miss","L2 accesses","# Cycles"
