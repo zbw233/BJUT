@@ -67,18 +67,15 @@ def initbench(arg, name):
     add_experiments(bench)
 
 
-#~ initbench(' -o "filelist_4 -r 5 -lat 30 -lng 90"', 'nn/gem5_fusion_nn')
-#~ initbench(' ', 'cell/gem5_fusion_cell')
+#~ initbench(' -o "512 2 2 ../../data/hotspot/temp_512 ../../data/hotspot/power_512 output.out"', 'hotspot/gem5_fusion_hotspot')
+#~ initbench(' -o "-o -i ../../data/kmeans/kdd_cup" ', 'kmeans/gem5_fusion_kmeans')
 #~ initbench(' ', 'heartwall/gem5_fusion_heartwall')
-initbench(' -o 512', 'backprop/gem5_fusion_backprop')
-# add_tasks('ferret')
-# add_tasks('fluidanimate')
-# add_tasks('freqmine')
-# add_tasks('streamcluster')
-# add_tasks('swaptions')
-# add_tasks('vips')
-# add_tasks('x264')
-
+#~ initbench(' -o 512', 'backprop/gem5_fusion_backprop')
+#~ initbench(' -o 512', 'bfs/gem5_fusion_bfs')
+initbench(' -o "2048 10"', 'nw/gem5_fusion_needle')
+#~ initbench(' ', 'pathfinder/gem5_fusion_pathfinder')
+#~ initbench(' ', 'srad/gem5_fusion_srad')
+#~ initbench(' ', 'strmcluster/gem5_fusion_strmcluster')
 
    
 
