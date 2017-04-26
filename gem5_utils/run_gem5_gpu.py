@@ -72,10 +72,12 @@ def initbench(arg, name):
 #~ initbench(' ', 'heartwall/gem5_fusion_heartwall')
 #~ initbench(' -o 512', 'backprop/gem5_fusion_backprop')
 #~ initbench(' -o 512', 'bfs/gem5_fusion_bfs')
-initbench(' -o "2048 10"', 'nw/gem5_fusion_needle')
+#~ initbench(' -o "2048 10"', 'nw/gem5_fusion_needle')
 #~ initbench(' ', 'pathfinder/gem5_fusion_pathfinder')
 #~ initbench(' ', 'srad/gem5_fusion_srad')
 #~ initbench(' ', 'strmcluster/gem5_fusion_strmcluster')
+#~ initbench(' ', 'cell/gem5_fusion_cell')
+
 
    
 
