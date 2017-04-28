@@ -67,16 +67,16 @@ def initbench(arg, name):
     add_experiments(bench)
 
 
-#~ initbench(' -o "512 2 2 ../../data/hotspot/temp_512 ../../data/hotspot/power_512 output.out"', 'hotspot/gem5_fusion_hotspot')
-#~ initbench(' -o "-o -i ../../data/kmeans/kdd_cup" ', 'kmeans/gem5_fusion_kmeans')
-#~ initbench(' ', 'heartwall/gem5_fusion_heartwall')
+initbench(' -o "512 2 2 /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/hotspot/temp_512 /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/hotspot/power_512 output.out"', 'hotspot/gem5_fusion_hotspot')
+#~ initbench(' -o "-o -i /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/kmeans/kdd_cup" ', 'kmeans/gem5_fusion_kmeans')
+#~ initbench(' -o "/home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/heartwall/test.avi 5"', 'heartwall/gem5_fusion_heartwall')
 #~ initbench(' -o 512', 'backprop/gem5_fusion_backprop')
-#~ initbench(' -o 512', 'bfs/gem5_fusion_bfs')
+#~ initbench(' -o /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/bfs/graph1MW_6.txt', 'bfs/gem5_fusion_bfs')
 #~ initbench(' -o "2048 10"', 'nw/gem5_fusion_needle')
-#~ initbench(' ', 'pathfinder/gem5_fusion_pathfinder')
-#~ initbench(' ', 'srad/gem5_fusion_srad')
-#~ initbench(' ', 'strmcluster/gem5_fusion_strmcluster')
-#~ initbench(' ', 'cell/gem5_fusion_cell')
+#~ initbench(' -o "100000 100 20 > result.txt"', 'pathfinder/gem5_fusion_pathfinder')
+#~ initbench(' -o "2048 2048 0 127 0 127 0.5 2"', 'srad/gem5_fusion_srad')
+#~ initbench(' -o "10 20 256 65536 65536 1000 none output.txt 1"', 'strmcluster/gem5_fusion_strmcluster')
+#~ initbench(' -o "16 16 16 10000 16"', 'cell/gem5_fusion_cell')
 
 
    

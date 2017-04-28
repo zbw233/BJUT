@@ -20093,7 +20093,7 @@ subgraph cluster_system_gpu {
 fontname=Arial;
 color="#000000";
 style="rounded, filled";
-tooltip="access_host_pagetable&#61;false&#10;clk_domain&#61;system.gpu.clk_domain&#10;config_path&#61;results/backprop/gem5_fusion_backprop/256kB/8way/2c//gpgpusim.config&#10;cores_wrapper&#61;system.gpu.cores_wrapper&#10;dram_wrapper&#61;system.gpu.dram_wrapper&#10;dump_kernel_stats&#61;false&#10;eventq_index&#61;0&#10;gpu_memory_range&#61;0:2147483647&#10;icnt_wrapper&#61;system.gpu.icnt_wrapper&#10;kernel_launch_delay&#61;2.5e-07&#10;kernel_return_delay&#61;1e-07&#10;l2_wrapper&#61;system.gpu.l2_wrapper&#10;manage_gpu_memory&#61;false&#10;ruby&#61;system.ruby&#10;shader_mmu&#61;system.gpu.shader_mmu&#10;shared_mem_delay&#61;1&#10;stats_filename&#61;gpu_stats.txt&#10;sys&#61;system&#10;warp_size&#61;32";
+tooltip="access_host_pagetable&#61;false&#10;clk_domain&#61;system.gpu.clk_domain&#10;config_path&#61;results/nn/gem5_fusion_nn/256kB/8way/2c//gpgpusim.config&#10;cores_wrapper&#61;system.gpu.cores_wrapper&#10;dram_wrapper&#61;system.gpu.dram_wrapper&#10;dump_kernel_stats&#61;false&#10;eventq_index&#61;0&#10;gpu_memory_range&#61;0:2147483647&#10;icnt_wrapper&#61;system.gpu.icnt_wrapper&#10;kernel_launch_delay&#61;2.5e-07&#10;kernel_return_delay&#61;1e-07&#10;l2_wrapper&#61;system.gpu.l2_wrapper&#10;manage_gpu_memory&#61;false&#10;ruby&#61;system.ruby&#10;shader_mmu&#61;system.gpu.shader_mmu&#10;shared_mem_delay&#61;1&#10;stats_filename&#61;gpu_stats.txt&#10;sys&#61;system&#10;warp_size&#61;32";
 label="gpu \n: CudaGPU";
 shape=Mrecord;
 fontsize=14;
@@ -21303,7 +21303,7 @@ subgraph cluster_system_cpu0_workload {
 fontname=Arial;
 color="#000000";
 style="rounded, filled";
-tooltip="cmd&#61;/home/zhangbowen/gem5-gpu/benchmarks/rodinia/backprop/gem5_fusion_backprop 512&#10;cwd&#61;&#10;drivers&#61;&#10;egid&#61;100&#10;env&#61;&#10;errout&#61;cerr&#10;euid&#61;100&#10;eventq_index&#61;0&#10;executable&#61;/home/zhangbowen/gem5-gpu/benchmarks/rodinia/backprop/gem5_fusion_backprop&#10;gid&#61;100&#10;input&#61;cin&#10;kvmInSE&#61;false&#10;max_stack_size&#61;67108864&#10;output&#61;cout&#10;pid&#61;100&#10;ppid&#61;99&#10;simpoint&#61;0&#10;system&#61;system&#10;uid&#61;100&#10;useArchPT&#61;false";
+tooltip="cmd&#61;/home/zhangbowen/gem5-gpu/benchmarks/rodinia-nocopy/nn/gem5_fusion_nn filelist_4 -r 5 -lat 30 -lng 90&#10;cwd&#61;&#10;drivers&#61;&#10;egid&#61;100&#10;env&#61;&#10;errout&#61;cerr&#10;euid&#61;100&#10;eventq_index&#61;0&#10;executable&#61;/home/zhangbowen/gem5-gpu/benchmarks/rodinia-nocopy/nn/gem5_fusion_nn&#10;gid&#61;100&#10;input&#61;cin&#10;kvmInSE&#61;false&#10;max_stack_size&#61;67108864&#10;output&#61;cout&#10;pid&#61;100&#10;ppid&#61;99&#10;simpoint&#61;0&#10;system&#61;system&#10;uid&#61;100&#10;useArchPT&#61;false";
 label="workload \n: LiveProcess";
 shape=Mrecord;
 fontsize=14;

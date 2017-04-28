@@ -19137,7 +19137,7 @@
             "dump_kernel_stats": false, 
             "shared_mem_delay": 1, 
             "gpu_memory_range": "0:2147483647", 
-            "config_path": "results/backprop/gem5_fusion_backprop/256kB/8way/2c//gpgpusim.config", 
+            "config_path": "results/nn/gem5_fusion_nn/256kB/8way/2c//gpgpusim.config", 
             "clk_domain": {
                 "name": "clk_domain", 
                 "clock": [
@@ -20716,7 +20716,7 @@
                         "pid": 100, 
                         "kvmInSE": false, 
                         "cxx_class": "LiveProcess", 
-                        "executable": "/home/zhangbowen/gem5-gpu/benchmarks/rodinia/backprop/gem5_fusion_backprop", 
+                        "executable": "/home/zhangbowen/gem5-gpu/benchmarks/rodinia-nocopy/nn/gem5_fusion_nn", 
                         "drivers": [], 
                         "system": "system", 
                         "gid": 100, 
@@ -20732,8 +20732,14 @@
                         "max_stack_size": 67108864, 
                         "name": "workload", 
                         "cmd": [
-                            "/home/zhangbowen/gem5-gpu/benchmarks/rodinia/backprop/gem5_fusion_backprop", 
-                            "512"
+                            "/home/zhangbowen/gem5-gpu/benchmarks/rodinia-nocopy/nn/gem5_fusion_nn", 
+                            "filelist_4", 
+                            "-r", 
+                            "5", 
+                            "-lat", 
+                            "30", 
+                            "-lng", 
+                            "90"
                         ], 
                         "errout": "cerr", 
                         "useArchPT": false, 
