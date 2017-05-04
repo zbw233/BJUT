@@ -159,7 +159,7 @@ CacheMemory::getAddressAtIdx(int idx) const
 }
 
 bool
-CacheMemory::tryCacheAccess(Addr address, RubyRequestType type,
+CacheMemory::tryCacheAccess(string name,Addr address, RubyRequestType type,
                             DataBlock*& data_ptr)
 {
     assert(address == makeLineAddress(address));
@@ -169,7 +169,7 @@ CacheMemory::tryCacheAccess(Addr address, RubyRequestType type,
     if (loc != -1) {
         // Do we even have a tag match?
         AbstractCacheEntry* entry = m_cache[cacheSet][loc];
-        m_replacementPolicy_ptr->touch(cacheSet, loc, curTick());
+        m_replacementPolicy_ptr->touch(name,cacheSet, loc, curTick());
         data_ptr = &(entry->getDataBlk());
 
         if (entry->m_Permission == AccessPermission_Read_Write) {
@@ -186,7 +186,7 @@ CacheMemory::tryCacheAccess(Addr address, RubyRequestType type,
 }
 
 bool
-CacheMemory::testCacheAccess(Addr address, RubyRequestType type,
+CacheMemory::testCacheAccess(string name,Addr address, RubyRequestType type,
                              DataBlock*& data_ptr)
 {
     assert(address == makeLineAddress(address));
@@ -197,7 +197,7 @@ CacheMemory::testCacheAccess(Addr address, RubyRequestType type,
     if (loc != -1) {
         // Do we even have a tag match?
         AbstractCacheEntry* entry = m_cache[cacheSet][loc];
-        m_replacementPolicy_ptr->touch(cacheSet, loc, curTick());
+        m_replacementPolicy_ptr->touch(name,cacheSet, loc, curTick());
         data_ptr = &(entry->getDataBlk());
 
         return m_cache[cacheSet][loc]->m_Permission !=
@@ -251,7 +251,7 @@ CacheMemory::cacheAvail(Addr address) const
 }
 
 AbstractCacheEntry*
-CacheMemory::allocate(Addr address, AbstractCacheEntry* entry, bool touch)
+CacheMemory::allocate(string name, Addr address, AbstractCacheEntry* entry, bool touch)
 {
     assert(address == makeLineAddress(address));
     assert(!isTagPresent(address));
@@ -272,7 +272,7 @@ CacheMemory::allocate(Addr address, AbstractCacheEntry* entry, bool touch)
             m_tag_index[address] = i;
 
             if (touch) {
-                m_replacementPolicy_ptr->touch(cacheSet, i, curTick());
+                m_replacementPolicy_ptr->touch(name, cacheSet, i, curTick());
             }
 
             return entry;
@@ -332,13 +332,13 @@ CacheMemory::lookup(Addr address) const
 
 // Sets the most recently used bit for a cache block
 void
-CacheMemory::setMRU(Addr address)
+CacheMemory::setMRU(string name, Addr address)
 {
     int64_t cacheSet = addressToCacheSet(address);
     int loc = findTagInSet(cacheSet, address);
 
     if(loc != -1)
-        m_replacementPolicy_ptr->touch(cacheSet, loc, curTick());
+        m_replacementPolicy_ptr->touch(name, cacheSet, loc, curTick());
 }
 
 void

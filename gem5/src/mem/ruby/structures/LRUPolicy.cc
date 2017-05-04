@@ -31,6 +31,7 @@
 #include "mem/ruby/structures/LRUPolicy.hh"
 
 
+using namespace std;
 
 LRUPolicy::LRUPolicy(const Params * p)
     : AbstractReplacementPolicy(p)
@@ -50,11 +51,11 @@ LRUReplacementPolicyParams::create()
 
 
 void
-LRUPolicy::touch(int64_t set, int64_t index, Tick time)
+LRUPolicy::touch(string name, int64_t set, int64_t index, Tick time)
 {
     assert(index >= 0 && index < m_assoc);
     assert(set >= 0 && set < m_num_sets);
-
+    string m_name = name;
     m_last_ref_ptr[set][index] = time;
 }
 

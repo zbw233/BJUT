@@ -75,7 +75,7 @@ PseudoLRUPolicy::~PseudoLRUPolicy()
 }
 
 void
-PseudoLRUPolicy::touch(int64_t set, int64_t index, Tick time)
+PseudoLRUPolicy::touch(string name,int64_t set, int64_t index, Tick time)
 {
     assert(index >= 0 && index < m_assoc);
     assert(set >= 0 && set < m_num_sets);

@@ -32,6 +32,7 @@
 
 #include "mem/ruby/structures/AbstractReplacementPolicy.hh"
 #include "params/PseudoLRUReplacementPolicy.hh"
+#include <string>
 
 /**
  * Implementation of tree-based pseudo-LRU replacement
@@ -46,6 +47,10 @@
  * 2 is one below the associativy, and most fair when it is one above.
  */
 
+
+using namespace std;
+
+
 class PseudoLRUPolicy : public AbstractReplacementPolicy
 {
   public:
@@ -53,7 +58,7 @@ class PseudoLRUPolicy : public AbstractReplacementPolicy
     PseudoLRUPolicy(const Params * p);
     ~PseudoLRUPolicy();
 
-    void touch(int64_t set, int64_t way, Tick time);
+    void touch(string name, int64_t set, int64_t way, Tick time);
     int64_t getVictim(int64_t set) const;
 
   private:

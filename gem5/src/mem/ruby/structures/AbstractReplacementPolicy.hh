@@ -33,6 +33,8 @@
 #include "mem/ruby/common/TypeDefines.hh"
 #include "params/ReplacementPolicy.hh"
 #include "sim/sim_object.hh"
+#include <string>
+using namespace std;
 
 class CacheMemory;
 
@@ -44,7 +46,7 @@ class AbstractReplacementPolicy : public SimObject
     virtual ~AbstractReplacementPolicy();
 
     /* touch a block. a.k.a. update timestamp */
-    virtual void touch(int64_t set, int64_t way, Tick time) = 0;
+    virtual void touch(string name, int64_t set, int64_t way, Tick time) = 0;
 
     /* returns the way to replace */
     virtual int64_t getVictim(int64_t set) const = 0;

@@ -31,6 +31,9 @@
 
 #include "mem/ruby/structures/AbstractReplacementPolicy.hh"
 #include "params/LRUReplacementPolicy.hh"
+#include <string>
+
+using namespace std; 
 
 /* Simple true LRU replacement policy */
 
@@ -41,7 +44,7 @@ class LRUPolicy : public AbstractReplacementPolicy
     LRUPolicy(const Params * p);
     ~LRUPolicy();
 
-    void touch(int64_t set, int64_t way, Tick time);
+    void touch(string name, int64_t set, int64_t way, Tick time);
     int64_t getVictim(int64_t set) const;
 };
 
