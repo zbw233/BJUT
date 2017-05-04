@@ -23,6 +23,7 @@ def run(bench, l2_size, l2_assoc, num_threads):
     os.system('rm -fr ' + dir)
     os.system('mkdir -p ' + dir)
 
+   
     cmd_run = '../gem5/build/X86_MESI_Two_Level_GPU/gem5.opt -d ' + dir + ' ../gem5-gpu/configs/se_fusion.py' \
               + ' --clusters=4' \
               + ' -c ' + '/home/zhangbowen/gem5-gpu/benchmarks/rodinia/' + bench.name + bench.arg \
@@ -62,21 +63,21 @@ def add_experiments(bench):
     #~ add_experiment(bench, '4MB', 8, 4)
     #~ add_experiment(bench, '8MB', 8, 4)
 
-def initbench(arg, name):
+def add_bench(arg, name):
     bench=benchmarks(arg, name)
     add_experiments(bench)
 
 
-initbench(' -o "512 2 2 /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/hotspot/temp_512 /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/hotspot/power_512 output.out"', 'hotspot/gem5_fusion_hotspot')
-#~ initbench(' -o "-o -i /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/kmeans/kdd_cup" ', 'kmeans/gem5_fusion_kmeans')
-#~ initbench(' -o "/home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/heartwall/test.avi 5"', 'heartwall/gem5_fusion_heartwall')
-#~ initbench(' -o 512', 'backprop/gem5_fusion_backprop')
-#~ initbench(' -o /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/bfs/graph1MW_6.txt', 'bfs/gem5_fusion_bfs')
-#~ initbench(' -o "2048 10"', 'nw/gem5_fusion_needle')
-#~ initbench(' -o "100000 100 20 > result.txt"', 'pathfinder/gem5_fusion_pathfinder')
-#~ initbench(' -o "2048 2048 0 127 0 127 0.5 2"', 'srad/gem5_fusion_srad')
-#~ initbench(' -o "10 20 256 65536 65536 1000 none output.txt 1"', 'strmcluster/gem5_fusion_strmcluster')
-#~ initbench(' -o "16 16 16 10000 16"', 'cell/gem5_fusion_cell')
+#~ add_bench(' -o "16 2 2 /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/hotspot/temp_64 /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/hotspot/power_64 output.out"', 'hotspot/gem5_fusion_hotspot')
+#~ add_bench(' -o "-o -i /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/kmeans/kdd_cup"', 'kmeans/gem5_fusion_kmeans')
+#~ add_bench(' -o "/home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/heartwall/test.avi 5"', 'heartwall/gem5_fusion_heartwall')
+add_bench(' -o 4096', 'backprop/gem5_fusion_backprop')
+#~ add_bench(' -o /home/zhangbowen/gem5-gpu/benchmarks/rodinia/data/bfs/graph1MW_6.txt', 'bfs/gem5_fusion_bfs')
+#~ add_bench(' -o "512 10"', 'nw/gem5_fusion_needle')
+#~ add_bench(' -o "1000 100 20 > result.txt"', 'pathfinder/gem5_fusion_pathfinder')
+#~ add_bench(' -o "2048 2048 0 127 0 127 0.5 2"', 'srad/gem5_fusion_srad')
+#~ add_bench(' -o "10 20 256 65536 65536 1000 none output.txt 1"', 'strmcluster/gem5_fusion_strmcluster')
+#~ add_bench(' -o "16 16 16 10000 16"', 'cell/gem5_fusion_cell')
 
 
    
