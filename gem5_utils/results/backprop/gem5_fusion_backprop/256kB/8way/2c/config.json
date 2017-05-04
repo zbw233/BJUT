@@ -20733,7 +20733,7 @@
                         "name": "workload", 
                         "cmd": [
                             "/home/zhangbowen/gem5-gpu/benchmarks/rodinia/backprop/gem5_fusion_backprop", 
-                            "512"
+                            "4096"
                         ], 
                         "errout": "cerr", 
                         "useArchPT": false, 
