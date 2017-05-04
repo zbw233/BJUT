@@ -83,6 +83,7 @@ def create_system(options, full_system, system, dma_ports, ruby_system):
         prefetcher = RubyPrefetcher.Prefetcher()
 
         l1_cntrl = L1Cache_Controller(version = i,
+                                      name = "l1_cntrl" + str(i),
                                       L1Icache = l1i_cache,
                                       L1Dcache = l1d_cache,
                                       l2_select_num_bits = l2_bits,

@@ -86,6 +86,7 @@ def create_system(options, full_system, system, dma_devices, ruby_system):
         prefetcher = RubyPrefetcher.Prefetcher()
 
         l1_cntrl = L1Cache_Controller(version = options.num_cpus + i,
+                                      name = "l1_cntrl_sp" + str(i),
                                       L1Icache = l1i_cache,
                                       L1Dcache = l1d_cache,
                                       l2_select_num_bits = l2_bits,
@@ -151,6 +152,7 @@ def create_system(options, full_system, system, dma_devices, ruby_system):
     prefetcher = RubyPrefetcher.Prefetcher()
 
     l1_cntrl = L1Cache_Controller(version = options.num_cpus + options.num_sc,
+                                  name = "l1_pw_cntrl",
                                   L1Icache = pwi_cache,
                                   L1Dcache = pwd_cache,
                                   l2_select_num_bits = l2_bits,
@@ -202,6 +204,7 @@ def create_system(options, full_system, system, dma_devices, ruby_system):
     prefetcher = RubyPrefetcher.Prefetcher()
 
     l1_cntrl = L1Cache_Controller(version = options.num_cpus + options.num_sc+1,
+                                  name = "ce_cntrl",
                                   L1Icache = l1i_cache,
                                   L1Dcache = l1d_cache,
                                   l2_select_num_bits = l2_bits,

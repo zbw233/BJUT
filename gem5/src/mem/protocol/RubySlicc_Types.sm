@@ -98,16 +98,16 @@ structure (NetDest, external = "yes", non_obj="yes") {
 }
 
 structure (Sequencer, external = "yes") {
-  void readCallback(Addr, DataBlock);
-  void readCallback(Addr, DataBlock, bool);
-  void readCallback(Addr, DataBlock, bool, MachineType);
-  void readCallback(Addr, DataBlock, bool, MachineType,
+  void readCallback(std::string, Addr, DataBlock);
+  void readCallback(std::string, Addr, DataBlock, bool);
+  void readCallback(std::string, Addr, DataBlock, bool, MachineType);
+  void readCallback(std::string, Addr, DataBlock, bool, MachineType,
                     Cycles, Cycles, Cycles);
 
-  void writeCallback(Addr, DataBlock);
-  void writeCallback(Addr, DataBlock, bool);
-  void writeCallback(Addr, DataBlock, bool, MachineType);
-  void writeCallback(Addr, DataBlock, bool, MachineType,
+  void writeCallback(std::string, Addr, DataBlock);
+  void writeCallback(std::string, Addr, DataBlock, bool);
+  void writeCallback(std::string, Addr, DataBlock, bool, MachineType);
+  void writeCallback(std::string, Addr, DataBlock, bool, MachineType,
                      Cycles, Cycles, Cycles);
 
   void checkCoherence(Addr);
@@ -148,15 +148,15 @@ structure(AbstractCacheEntry, primitive="yes", external = "yes") {
 structure (CacheMemory, external = "yes") {
   bool cacheAvail(Addr);
   Addr cacheProbe(Addr);
-  AbstractCacheEntry allocate(Addr, AbstractCacheEntry);
-  AbstractCacheEntry allocate(Addr, AbstractCacheEntry, bool);
+  AbstractCacheEntry allocate(std::string, Addr, AbstractCacheEntry);
+  AbstractCacheEntry allocate(std::string, Addr, AbstractCacheEntry, bool);
   void allocateVoid(Addr, AbstractCacheEntry);
   void deallocate(Addr);
   AbstractCacheEntry lookup(Addr);
   bool isTagPresent(Addr);
   Cycles getTagLatency();
   Cycles getDataLatency();
-  void setMRU(Addr);
+  void setMRU(std::string, Addr);
   void recordRequestType(CacheRequestType, Addr);
   bool checkResourceAvailable(CacheResourceType, Addr);
   void flashInvalidate();

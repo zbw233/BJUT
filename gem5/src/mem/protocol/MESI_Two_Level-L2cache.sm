@@ -668,12 +668,12 @@ machine(L2Cache, "MESI Directory L2 Cache CMP")
   }
 
   action(set_setMRU, "\set", desc="set the MRU entry") {
-    L2cache.setMRU(address);
+    L2cache.setMRU("L2", address);
   }
 
   action(qq_allocateL2CacheBlock, "\q", desc="Set L2 cache tag equal to tag of block B.") {
     if (is_invalid(cache_entry)) {
-      set_cache_entry(L2cache.allocate(address, new Entry));
+      set_cache_entry(L2cache.allocate("L2", address, new Entry));
     }
   }
 

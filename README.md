@@ -1,16 +1,6 @@
 # README
 
-# TODOs
-
-1. [ MESI_Two_Level in gem5-gpu](https://groups.google.com/forum/#!topic/gem5-gpu-dev/29GioqstwKY) The L2 is shared between the CPU and GPU in MESI two level. 
-Think of the L2 cache in MESI two level as an LLC.
-
-CacheMemory.hh AbstractCacheEntry
-AbstractCacheEntry* entry = m_cache[set][way]
-MESI_Two_Level-L2cache.sm:122:  structure(Entry, desc="...", interface="AbstractCacheEntry") {
-MachineID Exclusive
-
-
+## Setup Instructions
 
 配置gem5-gpu过程
 
@@ -105,3 +95,9 @@ mq=
        3.编译所有benchmarks
 	cd gem5-gpu/benchmarks/rodinia
 	./buildall.sh
+
+## TODOs
+
+1. Clone lru.cc and lru.hh as bypass.cc and hh, Put GPU data in LRU position; put CPU data in MRU position.
+2. Integrate GPUWattch.
+3. thesis.

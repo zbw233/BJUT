@@ -24,7 +24,7 @@ def run(bench, l2_size, l2_assoc, num_threads):
     os.system('mkdir -p ' + dir)
 
    
-    cmd_run = 'gem5/build/X86_MESI_Two_Level_GPU/gem5.opt -d ' + dir + ' gem5-gpu/configs/se_fusion.py' \
+    cmd_run = 'gem5/build/X86_MESI_Two_Level_GPU/gem5.opt -d ' + dir + ' gem5/configs/se_fusion.py' \
               + ' --clusters=4' \
               + ' -c ' + 'benchmarks/rodinia/' + bench.name + bench.arg \
               + ' --cpu-type=timing --num-cpus=' + str(num_threads) \
