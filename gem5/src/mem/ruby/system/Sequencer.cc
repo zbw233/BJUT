@@ -421,7 +421,7 @@ Sequencer::recordMissLatency(const Cycles cycles, const RubyRequestType type,
 }
 
 void
-Sequencer::writeCallback(Addr address, DataBlock& data,
+Sequencer::writeCallback(string requestId, Addr address, DataBlock& data,
                          const bool externalHit, const MachineType mach,
                          const Cycles initialRequestTime,
                          const Cycles forwardRequestTime,
@@ -465,12 +465,12 @@ Sequencer::writeCallback(Addr address, DataBlock& data,
         m_controller->unblock(address);
     }
 
-    hitCallback(request, data, success, mach, externalHit,
+    hitCallback(requestId, request, data, success, mach, externalHit,
                 initialRequestTime, forwardRequestTime, firstResponseTime);
 }
 
 void
-Sequencer::readCallback(Addr address, DataBlock& data,
+Sequencer::readCallback(string requestId, Addr address, DataBlock& data,
                         bool externalHit, const MachineType mach,
                         Cycles initialRequestTime,
                         Cycles forwardRequestTime,
@@ -491,12 +491,12 @@ Sequencer::readCallback(Addr address, DataBlock& data,
            (request->m_type == RubyRequestType_LD_Bypass) ||
            (request->m_type == RubyRequestType_FLUSHALL));
 
-    hitCallback(request, data, true, mach, externalHit,
+    hitCallback(requestId, request, data, true, mach, externalHit,
                 initialRequestTime, forwardRequestTime, firstResponseTime);
 }
 
 void
-Sequencer::hitCallback(SequencerRequest* srequest, DataBlock& data,
+Sequencer::hitCallback(string requestId, SequencerRequest* srequest, DataBlock& data,
                        bool llscSuccess,
                        const MachineType mach, const bool externalHit,
                        const Cycles initialRequestTime,
@@ -511,9 +511,9 @@ Sequencer::hitCallback(SequencerRequest* srequest, DataBlock& data,
 
     // Set this cache entry to the most recently used
     if (type == RubyRequestType_IFETCH) {
-        m_instCache_ptr->setMRU(request_line_address);
+        m_instCache_ptr->setMRU(requestId, request_line_address);
     } else {
-        m_dataCache_ptr->setMRU(request_line_address);
+        m_dataCache_ptr->setMRU(requestId, request_line_address);
     }
 
     assert(curCycle() >= issued_time);

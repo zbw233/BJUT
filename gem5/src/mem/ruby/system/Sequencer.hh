@@ -39,6 +39,9 @@
 #include "mem/ruby/structures/CacheMemory.hh"
 #include "mem/ruby/system/RubyPort.hh"
 #include "params/RubySequencer.hh"
+#include <string>
+
+using  namespace std;
 
 struct SequencerRequest
 {
@@ -68,7 +71,8 @@ class Sequencer : public RubyPort
     void collateStats();
     void regStats();
 
-    void writeCallback(Addr address,
+    void writeCallback(string requestId,
+                       Addr address,
                        DataBlock& data,
                        const bool externalHit = false,
                        const MachineType mach = MachineType_NUM,
@@ -76,7 +80,8 @@ class Sequencer : public RubyPort
                        const Cycles forwardRequestTime = Cycles(0),
                        const Cycles firstResponseTime = Cycles(0));
 
-    void readCallback(Addr address,
+    void readCallback(string requestId,
+                      Addr address,
                       DataBlock& data,
                       const bool externalHit = false,
                       const MachineType mach = MachineType_NUM,
@@ -152,7 +157,7 @@ class Sequencer : public RubyPort
   private:
     void issueRequest(PacketPtr pkt, RubyRequestType type);
 
-    void hitCallback(SequencerRequest* request, DataBlock& data,
+    void hitCallback(string requestId, SequencerRequest* request, DataBlock& data,
                      bool llscSuccess,
                      const MachineType mach, const bool externalHit,
                      const Cycles initialRequestTime,
