@@ -1,6 +1,4 @@
-# -*- mode:python -*-
-
-# Copyright (c) 2009 The Hewlett-Packard Development Company
+# Copyright (c) 2011 Mark D. Hill and David A. Wood
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,31 +24,23 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-# Authors: Nathan Binkert
 
-import os
+from m5.params import *
+from m5.proxy import *
+from BaseTLB import BaseTLB
 
-Import('*')
+class ShaderTLB(BaseTLB):
+    type = 'ShaderTLB'
+    cxx_class = 'ShaderTLB'
+    cxx_header = "gpu/shader_tlb.hh"
 
-all_protocols.extend([
-    'MESI_Two_Level',
-    'MESI_Three_Level',
-    'MI_example',
-    'MOESI_CMP_directory',
-    'MOESI_CMP_token',
-    'MOESI_hammer',
-    'VI_hammer',
-    'Network_test',
-    'None'
-    ])
+    access_host_pagetable = Param.Bool(False, \
+                "Whether to allow accesses to host page table")
+    gpu = Param.CudaGPU(Parent.any, "The GPU")
 
-opt = BoolVariable('SLICC_HTML', 'Create HTML files', False)
-sticky_vars.AddVariables(opt)
+    entries = Param.Int(0, "number entries in TLB (0 implies infinite)")
 
-protocol_dirs.append(Dir('.').abspath)
+    associativity = Param.Int(4, "Number of sets in the TLB")
 
-protocol_base = Dir('.')
-Export('protocol_base')
+    hit_latency = Param.Cycles(1, "number of cycles for a hit")
 
-slicc_includes.append('mem/ruby/slicc_interface/RubySlicc_includes.hh')
-slicc_includes.append('mem/ruby/RubySlicc_GPUMappings.hh')

@@ -1,6 +1,6 @@
 # -*- mode:python -*-
 
-# Copyright (c) 2009 The Hewlett-Packard Development Company
+# Copyright (c) 2011 Mark D. Hill and David A. Wood
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,31 +26,19 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-# Authors: Nathan Binkert
-
-import os
 
 Import('*')
 
-all_protocols.extend([
-    'MESI_Two_Level',
-    'MESI_Three_Level',
-    'MI_example',
-    'MOESI_CMP_directory',
-    'MOESI_CMP_token',
-    'MOESI_hammer',
-    'VI_hammer',
-    'Network_test',
-    'None'
-    ])
+SimObject('CudaCore.py')
+SimObject('CudaGPU.py')
 
-opt = BoolVariable('SLICC_HTML', 'Create HTML files', False)
-sticky_vars.AddVariables(opt)
+Source('cuda_core.cc')
+Source('cuda_gpu.cc')
 
-protocol_dirs.append(Dir('.').abspath)
-
-protocol_base = Dir('.')
-Export('protocol_base')
-
-slicc_includes.append('mem/ruby/slicc_interface/RubySlicc_includes.hh')
-slicc_includes.append('mem/ruby/RubySlicc_GPUMappings.hh')
+DebugFlag('CudaCore')
+DebugFlag('CudaCoreAccess')
+DebugFlag('CudaCoreFetch')
+DebugFlag('CudaGPU')
+DebugFlag('CudaGPUAccess')
+DebugFlag('CudaGPUPageTable')
+DebugFlag('CudaGPUTick')

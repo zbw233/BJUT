@@ -1,6 +1,4 @@
-# -*- mode:python -*-
-
-# Copyright (c) 2009 The Hewlett-Packard Development Company
+# Copyright (c) 2011 Mark D. Hill and David A. Wood
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,31 +24,32 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-# Authors: Nathan Binkert
 
-import os
+from MemObject import MemObject
+from ShaderTLB import ShaderTLB
+from m5.defines import buildEnv
+from m5.params import *
+from m5.proxy import *
 
-Import('*')
+class GPUCopyEngine(MemObject):
+    type = 'GPUCopyEngine'
+    cxx_class = 'GPUCopyEngine'
+    cxx_header = "gpu/copy_engine.hh"
 
-all_protocols.extend([
-    'MESI_Two_Level',
-    'MESI_Three_Level',
-    'MI_example',
-    'MOESI_CMP_directory',
-    'MOESI_CMP_token',
-    'MOESI_hammer',
-    'VI_hammer',
-    'Network_test',
-    'None'
-    ])
+    host_port = MasterPort("The copy engine port to host coherence domain")
+    device_port = MasterPort("The copy engine port to device coherence domain")
+    driver_delay = Param.Int(0, "memcpy launch delay in ticks");
+    sys = Param.System(Parent.any, "system sc will run on")
+    # @TODO: This will need to be removed when CUDA syscalls manage copies
+    gpu = Param.CudaGPU(Parent.any, "The GPU")
 
-opt = BoolVariable('SLICC_HTML', 'Create HTML files', False)
-sticky_vars.AddVariables(opt)
+    cache_line_size = Param.Unsigned(Parent.cache_line_size, "Cache line size in bytes")
+    buffering = Param.Unsigned(0, "The maximum cache lines that the copy engine"
+                                  "can buffer (0 implies effectively infinite)")
 
-protocol_dirs.append(Dir('.').abspath)
+    host_dtb = Param.ShaderTLB(ShaderTLB(access_host_pagetable = True), "TLB for the host memory space")
+    device_dtb = Param.ShaderTLB(ShaderTLB(), "TLB for the device memory space")
 
-protocol_base = Dir('.')
-Export('protocol_base')
-
-slicc_includes.append('mem/ruby/slicc_interface/RubySlicc_includes.hh')
-slicc_includes.append('mem/ruby/RubySlicc_GPUMappings.hh')
+    id = Param.Int(-1, "ID of the CE")
+    stats_filename = Param.String("ce_stats.txt",
+        "file to which copy engine dumps its stats")

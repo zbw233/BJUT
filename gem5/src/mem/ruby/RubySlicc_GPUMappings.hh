@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006 The Regents of The University of Michigan
+ * Copyright (c) 2012 Mark D. Hill and David A. Wood
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,14 +24,32 @@
  * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * Authors: Steve Reinhardt
  */
 
-#include <stdio.h>
+#ifndef __MEM_RUBY_SLICC_GPUMAPPINGS_HH__
+#define __MEM_RUBY_SLICC_GPUMAPPINGS_HH__
 
-int main()
+#include <cmath>
+
+#include "mem/protocol/MachineType.hh"
+#include "mem/ruby/common/Address.hh"
+#include "mem/ruby/common/MachineID.hh"
+#include "mem/ruby/common/NetDest.hh"
+#include "mem/ruby/structures/DirectoryMemory.hh"
+
+inline MachineID
+getL2ID(Addr addr, int num_l2, int select_bits, int select_start_bit)
 {
-    printf("Hello world!\n");
+    unsigned num = 0;
+    if (select_bits) {
+        if (num_l2 > pow(2, select_bits))
+            fatal("Number of GPU L2 select bits set incorrectly?");
+        uint64_t bits = bitSelect(addr, select_start_bit, select_start_bit + select_bits - 1);
+        num = bits % num_l2;
+    }
+
+    MachineID mach = {string_to_MachineType("GPUL2Cache"), num};
+    return mach;
 }
 
+#endif

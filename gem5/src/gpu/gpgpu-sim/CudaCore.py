@@ -1,6 +1,4 @@
-# -*- mode:python -*-
-
-# Copyright (c) 2009 The Hewlett-Packard Development Company
+# Copyright (c) 2011 Mark D. Hill and David A. Wood
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -26,31 +24,29 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-# Authors: Nathan Binkert
 
-import os
+from MemObject import MemObject
+from ShaderTLB import ShaderTLB
+from m5.defines import buildEnv
+from m5.params import *
+from m5.proxy import *
 
-Import('*')
+class CudaCore(MemObject):
+    type = 'CudaCore'
+    cxx_class = 'CudaCore'
+    cxx_header = "gpu/gpgpu-sim/cuda_core.hh"
 
-all_protocols.extend([
-    'MESI_Two_Level',
-    'MESI_Three_Level',
-    'MI_example',
-    'MOESI_CMP_directory',
-    'MOESI_CMP_token',
-    'MOESI_hammer',
-    'VI_hammer',
-    'Network_test',
-    'None'
-    ])
+    inst_port = MasterPort("The instruction cache port for this SC")
 
-opt = BoolVariable('SLICC_HTML', 'Create HTML files', False)
-sticky_vars.AddVariables(opt)
+    lsq_port = VectorMasterPort("the load/store queue coalescer ports")
 
-protocol_dirs.append(Dir('.').abspath)
+    lsq_ctrl_port = MasterPort("The load/store queue control port")
 
-protocol_base = Dir('.')
-Export('protocol_base')
+    sys = Param.System(Parent.any, "system sc will run on")
+    gpu = Param.CudaGPU(Parent.any, "The GPU this core is part of")
 
-slicc_includes.append('mem/ruby/slicc_interface/RubySlicc_includes.hh')
-slicc_includes.append('mem/ruby/RubySlicc_GPUMappings.hh')
+    itb = Param.ShaderTLB(ShaderTLB(), "Instruction TLB")
+
+    id = Param.Int(-1, "ID of the SP")
+
+    warp_contexts = Param.Int(48, "Number of warps possible per GPU core")
