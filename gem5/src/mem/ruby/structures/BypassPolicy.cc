@@ -76,15 +76,6 @@ BypassPolicy::getVictim(int64_t set) const
     for (unsigned i = 0; i < m_assoc; i++) {
         time = m_last_ref_ptr[set][i];
 
-        if (!is_gpu_request[set][i] && (time < smallest_time_cpu || smallest_time_cpu == -1)) {
-            smallest_index_cpu = i;
-            smallest_time_cpu = time;
-        }
-    }
-
-    for (unsigned i = 0; i < m_assoc; i++) {
-        time = m_last_ref_ptr[set][i];
-
         if (is_gpu_request[set][i] && (time < smallest_time_gpu || smallest_time_gpu == -1)) {
             smallest_index_gpu = i;
             smallest_time_gpu = time;
@@ -93,6 +84,15 @@ BypassPolicy::getVictim(int64_t set) const
 
     if(smallest_index_gpu != -1) {
         return smallest_index_gpu;
+    }
+
+    for (unsigned i = 0; i < m_assoc; i++) {
+        time = m_last_ref_ptr[set][i];
+
+        if (!is_gpu_request[set][i] && (time < smallest_time_cpu || smallest_time_cpu == -1)) {
+            smallest_index_cpu = i;
+            smallest_time_cpu = time;
+        }
     }
 
     return smallest_index_cpu;
