@@ -63,24 +63,35 @@ BypassPolicy::touch(string name, int64_t set, int64_t index, Tick time)
 int64_t
 BypassPolicy::getVictim(int64_t set) const
 {
-    Tick time, smallest_time;
-    int64_t smallest_index = 0;
-    smallest_time = m_last_ref_ptr[set][0];
+    Tick time_cpu, smallest_time_cpu;
+    int64_t smallest_index_cpu = -1;
+    smallest_time_cpu = -1;
+
+    Tick time_gpu, smallest_time_gpu;
+    int64_t smallest_index_gpu = -1;
+    smallest_time_gpu = -1;
 
     for (unsigned i = 0; i < m_assoc; i++) {
         time = m_last_ref_ptr[set][i];
-        
-        if(is_gpu_request[set][i]){
-            smallest_index = i;
-            return smallest_index;
-        }
-        else{
-            if (time < smallest_time) {
-                smallest_index = i;
-                smallest_time = time;
-            }
+
+        if (!is_gpu_request[set][i] && (time < smallest_time_cpu || smallest_time_cpu == -1)) {
+            smallest_index_cpu = i;
+            smallest_time_cpu = time;
         }
     }
 
-    return smallest_index;
+    for (unsigned i = 0; i < m_assoc; i++) {
+        time = m_last_ref_ptr[set][i];
+
+        if (is_gpu_request[set][i] && (time < smallest_time_gpu || smallest_time_gpu == -1)) {
+            smallest_index_gpu = i;
+            smallest_time_gpu = time;
+        }
+    }
+
+    if(smallest_index_gpu != -1) {
+        return smallest_index_gpu;
+    }
+
+    return smallest_index_cpu;
 }
