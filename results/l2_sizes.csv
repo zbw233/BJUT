@@ -1,2 +1,0 @@
-"Benchmark","L2 Size","L2 Accesses","L2 Hit Rate","# Cycles"
-"backprop/gem5_fusion_backprop","256kB","6104","0.85370249017038","2918526"
