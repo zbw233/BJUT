@@ -63,11 +63,13 @@ BypassPolicy::touch(string name, int64_t set, int64_t index, Tick time)
 int64_t
 BypassPolicy::getVictim(int64_t set) const
 {
-    Tick time_cpu, smallest_time_cpu;
+    Tick time;
+
+    Tick smallest_time_cpu;
     int64_t smallest_index_cpu = -1;
     smallest_time_cpu = -1;
 
-    Tick time_gpu, smallest_time_gpu;
+    Tick smallest_time_gpu;
     int64_t smallest_index_gpu = -1;
     smallest_time_gpu = -1;
 
