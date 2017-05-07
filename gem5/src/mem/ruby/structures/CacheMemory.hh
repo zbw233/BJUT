@@ -58,11 +58,11 @@ class CacheMemory : public SimObject
 
     // Public Methods
     // perform a cache access and see if we hit or not.  Return true on a hit.
-    bool tryCacheAccess(string requestId, Addr address, RubyRequestType type,
+    bool tryCacheAccess(string requesterId, Addr address, RubyRequestType type,
                         DataBlock*& data_ptr);
 
     // similar to above, but doesn't require full access check
-    bool testCacheAccess(string requestId, Addr address, RubyRequestType type,
+    bool testCacheAccess(string requesterId, Addr address, RubyRequestType type,
                          DataBlock*& data_ptr);
 
     // tests to see if an address is present in the cache
@@ -74,14 +74,14 @@ class CacheMemory : public SimObject
     bool cacheAvail(Addr address) const;
 
     // find an unused entry and sets the tag appropriate for the address
-    AbstractCacheEntry* allocate(string requestId, Addr address,AbstractCacheEntry* new_entry, bool touch);
-    AbstractCacheEntry* allocate(string requestId, Addr address, AbstractCacheEntry* new_entry)
+    AbstractCacheEntry* allocate(string requesterId, Addr address,AbstractCacheEntry* new_entry, bool touch);
+    AbstractCacheEntry* allocate(string requesterId, Addr address, AbstractCacheEntry* new_entry)
     {
-        return allocate(requestId, address, new_entry, true);
+        return allocate(requesterId, address, new_entry, true);
     }
-    void allocateVoid(string requestId, Addr address, AbstractCacheEntry* new_entry)
+    void allocateVoid(string requesterId, Addr address, AbstractCacheEntry* new_entry)
     {
-        allocate(requestId, address, new_entry, true);
+        allocate(requesterId, address, new_entry, true);
     }
 
     // Explicitly free up this address
@@ -104,7 +104,7 @@ class CacheMemory : public SimObject
     void recordCacheContents(int cntrl, CacheRecorder* tr) const;
 
     // Set this address to most recently used
-    void setMRU(string requestId, Addr address);
+    void setMRU(string requesterId, Addr address);
 
     // Functions for locking and unlocking cache lines corresponding to the
     // provided address.  These are required for supporting atomic memory

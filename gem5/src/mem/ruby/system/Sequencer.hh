@@ -71,7 +71,7 @@ class Sequencer : public RubyPort
     void collateStats();
     void regStats();
 
-    void writeCallback(string requestId,
+    void writeCallback(string requesterId,
                        Addr address,
                        DataBlock& data,
                        const bool externalHit = false,
@@ -80,7 +80,7 @@ class Sequencer : public RubyPort
                        const Cycles forwardRequestTime = Cycles(0),
                        const Cycles firstResponseTime = Cycles(0));
 
-    void readCallback(string requestId,
+    void readCallback(string requesterId,
                       Addr address,
                       DataBlock& data,
                       const bool externalHit = false,
@@ -157,7 +157,7 @@ class Sequencer : public RubyPort
   private:
     void issueRequest(PacketPtr pkt, RubyRequestType type);
 
-    void hitCallback(string requestId, SequencerRequest* request, DataBlock& data,
+    void hitCallback(string requesterId, SequencerRequest* request, DataBlock& data,
                      bool llscSuccess,
                      const MachineType mach, const bool externalHit,
                      const Cycles initialRequestTime,

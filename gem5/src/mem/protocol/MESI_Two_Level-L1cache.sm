@@ -27,7 +27,7 @@
  */
 
 machine(L1Cache, "MESI Directory L1 Cache CMP")
- : std::string name;
+ : std::string requesterId;
    Sequencer * sequencer;
    CacheMemory * L1Icache;
    CacheMemory * L1Dcache;
@@ -815,7 +815,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
   {
     assert(is_valid(cache_entry));
     DPRINTF(RubySlicc, "%s\n", cache_entry.DataBlk);
-    sequencer.readCallback(name, address, cache_entry.DataBlk);
+    sequencer.readCallback(requesterId, address, cache_entry.DataBlk);
   }
 
   action(hx_load_hit, "hx",
@@ -823,7 +823,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
   {
     assert(is_valid(cache_entry));
     DPRINTF(RubySlicc, "%s\n", cache_entry.DataBlk);
-    sequencer.readCallback(name, address, cache_entry.DataBlk, true);
+    sequencer.readCallback(requesterId, address, cache_entry.DataBlk, true);
   }
 
   action(hh_store_hit, "\h",
@@ -831,7 +831,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
   {
     assert(is_valid(cache_entry));
     DPRINTF(RubySlicc, "%s\n", cache_entry.DataBlk);
-    sequencer.writeCallback(name, address, cache_entry.DataBlk);
+    sequencer.writeCallback(requesterId, address, cache_entry.DataBlk);
     cache_entry.Dirty := true;
   }
 
@@ -840,7 +840,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
   {
     assert(is_valid(cache_entry));
     DPRINTF(RubySlicc, "%s\n", cache_entry.DataBlk);
-    sequencer.writeCallback(name, address, cache_entry.DataBlk, true);
+    sequencer.writeCallback(requesterId, address, cache_entry.DataBlk, true);
     cache_entry.Dirty := true;
   }
 
@@ -902,13 +902,13 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
 
   action(oo_allocateL1DCacheBlock, "\o", desc="Set L1 D-cache tag equal to tag of block B.") {
     if (is_invalid(cache_entry)) {
-      set_cache_entry(L1Dcache.allocate(name, address, new Entry));
+      set_cache_entry(L1Dcache.allocate(requesterId, address, new Entry));
     }
   }
 
   action(pp_allocateL1ICacheBlock, "\p", desc="Set L1 I-cache tag equal to tag of block B.") {
     if (is_invalid(cache_entry)) {
-      set_cache_entry(L1Icache.allocate(name, address, new Entry));
+      set_cache_entry(L1Icache.allocate(requesterId, address, new Entry));
     }
   }
 
