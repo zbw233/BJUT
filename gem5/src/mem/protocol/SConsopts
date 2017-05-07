@@ -39,7 +39,6 @@ all_protocols.extend([
     'MOESI_CMP_directory',
     'MOESI_CMP_token',
     'MOESI_hammer',
-    'VI_hammer',
     'Network_test',
     'None'
     ])
@@ -53,4 +52,3 @@ protocol_base = Dir('.')
 Export('protocol_base')
 
 slicc_includes.append('mem/ruby/slicc_interface/RubySlicc_includes.hh')
-slicc_includes.append('mem/ruby/RubySlicc_GPUMappings.hh')

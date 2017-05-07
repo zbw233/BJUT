@@ -24,7 +24,7 @@ def run(bench, l2_size, l2_assoc, num_threads):
     os.system('mkdir -p ' + dir)
 
    
-    cmd_run = 'gem5/build/X86_MESI_Two_Level_GPU/gem5.opt -d ' + dir + ' gem5/configs/se_fusion.py' \
+    cmd_run = 'gem5/build/X86_MESI_Two_Level_GPU/gem5.opt -d ' + dir + ' gem5-gpu/configs/se_fusion.py' \
               + ' --clusters=4' \
               + ' -c ' + 'benchmarks/rodinia/' + bench.name + bench.arg \
               + ' --cpu-type=timing --num-cpus=' + str(num_threads) \
@@ -71,7 +71,7 @@ def add_bench(arg, name):
 #~ add_bench(' -o "16 2 2 benchmarks/rodinia/data/hotspot/temp_64 benchmarks/rodinia/data/hotspot/power_64 output.out"', 'hotspot/gem5_fusion_hotspot')
 #~ add_bench(' -o "-o -i benchmarks/rodinia/data/kmeans/kdd_cup"', 'kmeans/gem5_fusion_kmeans')
 #~ add_bench(' -o "benchmarks/rodinia/data/heartwall/test.avi 5"', 'heartwall/gem5_fusion_heartwall')
-add_bench(' -o 16', 'backprop/gem5_fusion_backprop')
+add_bench(' -o 4096', 'backprop/gem5_fusion_backprop')
 #~ add_bench(' -o benchmarks/rodinia/data/bfs/graph1MW_6.txt', 'bfs/gem5_fusion_bfs')
 #~ add_bench(' -o "512 10"', 'nw/gem5_fusion_needle')
 #~ add_bench(' -o "1000 100 20 > result.txt"', 'pathfinder/gem5_fusion_pathfinder')

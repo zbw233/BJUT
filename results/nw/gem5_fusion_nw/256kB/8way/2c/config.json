@@ -176,7 +176,6 @@
                     "type": "MessageBuffer"
                 }, 
                 "l1_response_latency": 2, 
-                "requesterId": "l1_cntrl_sp2", 
                 "L1Icache": {
                     "size": 65536, 
                     "tagArrayBanks": 1, 
@@ -394,7 +393,6 @@
                     "type": "MessageBuffer"
                 }, 
                 "l1_response_latency": 2, 
-                "requesterId": "l1_cntrl_sp3", 
                 "L1Icache": {
                     "size": 65536, 
                     "tagArrayBanks": 1, 
@@ -612,7 +610,6 @@
                     "type": "MessageBuffer"
                 }, 
                 "l1_response_latency": 2, 
-                "requesterId": "l1_cntrl_sp0", 
                 "L1Icache": {
                     "size": 65536, 
                     "tagArrayBanks": 1, 
@@ -830,7 +827,6 @@
                     "type": "MessageBuffer"
                 }, 
                 "l1_response_latency": 2, 
-                "requesterId": "l1_cntrl_sp1", 
                 "L1Icache": {
                     "size": 65536, 
                     "tagArrayBanks": 1, 
@@ -1061,7 +1057,6 @@
                     "type": "MessageBuffer"
                 }, 
                 "l1_response_latency": 2, 
-                "requesterId": "l1_cntrl0", 
                 "L1Icache": {
                     "size": 32768, 
                     "tagArrayBanks": 1, 
@@ -1289,7 +1284,6 @@
                     "type": "MessageBuffer"
                 }, 
                 "l1_response_latency": 2, 
-                "requesterId": "l1_cntrl1", 
                 "L1Icache": {
                     "size": 32768, 
                     "tagArrayBanks": 1, 
@@ -1673,7 +1667,6 @@
                     "type": "MessageBuffer"
                 }, 
                 "l1_response_latency": 2, 
-                "requesterId": "l1_pw_cntrl", 
                 "L1Icache": {
                     "size": 512, 
                     "tagArrayBanks": 1, 
@@ -1894,7 +1887,6 @@
                     "type": "MessageBuffer"
                 }, 
                 "l1_response_latency": 2, 
-                "requesterId": "ce_cntrl", 
                 "L1Icache": {
                     "size": 2048, 
                     "tagArrayBanks": 1, 
@@ -19145,7 +19137,7 @@
             "dump_kernel_stats": false, 
             "shared_mem_delay": 1, 
             "gpu_memory_range": "0:2147483647", 
-            "config_path": "results/backprop/gem5_fusion_backprop/256kB/8way/2c//gpgpusim.config", 
+            "config_path": "results/nw/gem5_fusion_nw/256kB/8way/2c//gpgpusim.config", 
             "clk_domain": {
                 "name": "clk_domain", 
                 "clock": [
@@ -20724,7 +20716,7 @@
                         "pid": 100, 
                         "kvmInSE": false, 
                         "cxx_class": "LiveProcess", 
-                        "executable": "benchmarks/rodinia/backprop/gem5_fusion_backprop", 
+                        "executable": "/home/zhangbowen/gem5-gpu/benchmarks/rodinia/nw/gem5_fusion_nw", 
                         "drivers": [], 
                         "system": "system", 
                         "gid": 100, 
@@ -20740,8 +20732,9 @@
                         "max_stack_size": 67108864, 
                         "name": "workload", 
                         "cmd": [
-                            "benchmarks/rodinia/backprop/gem5_fusion_backprop", 
-                            "4096"
+                            "/home/zhangbowen/gem5-gpu/benchmarks/rodinia/nw/gem5_fusion_nw", 
+                            "2048", 
+                            "10"
                         ], 
                         "errout": "cerr", 
                         "useArchPT": false, 
