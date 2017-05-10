@@ -34,10 +34,11 @@
 using namespace std;
 
 SP_staticPolicy::SP_staticPolicy(const Params * p)
-    : AbstractReplacementPolicy(p)
+    : AbstractReplacementPolicy(p),
+      minGpuPartitionSize(p->min_gpu_partition_size),
+      maxGpuPartitionSize(p->max_gpu_partition_size)
 {
-    minGpuPartitionSize(p->min_gpu_patition_size);
-    maxGpuPartitionSize(p->max_gpu_patition_size);
+    printf("min: %d, max: %d\n", minGpuPartitionSize, maxGpuPartitionSize);
 }
 
 
@@ -63,7 +64,7 @@ SP_staticPolicy::touch(string name, int64_t set, int64_t index, Tick time)
 }
 
 int64_t
-SP_staticPolicy::getVictim(int64_t set) const
+SP_staticPolicy::getVictim(string name, int64_t set) const
 {
     Tick time;
 
@@ -75,13 +76,13 @@ SP_staticPolicy::getVictim(int64_t set) const
     int64_t smallest_index_gpu = -1;
     smallest_time_gpu = -1;
      
-    int numGpuLine = 0;
+    int numGpuLines = 0;
     
     for (unsigned i = 0; i < m_assoc; i++) {
         time = m_last_ref_ptr[set][i];
 
         if (is_gpu_request[set][i] )
-            numGpuLine++;
+            numGpuLines++;
             
             if (time < smallest_time_gpu || smallest_time_gpu == -1) {
                 smallest_index_gpu = i;
@@ -89,7 +90,7 @@ SP_staticPolicy::getVictim(int64_t set) const
         }
     }
 
-    if(numGpuLine > maxGpuPartitionSize) {
+    if(numGpuLines > maxGpuPartitionSize && name.find("l1_cntrl_sp"))
         return smallest_index_gpu;
     }
 
@@ -102,7 +103,7 @@ SP_staticPolicy::getVictim(int64_t set) const
         }
     }
     
-    if(numGpuLine < minGpuPartitionSize) {
+    if(numGpuLines < minGpuPartitionSize && !name.find("l1_cntrl_sp")) {
         return smallest_index_cpu;
     
     }
@@ -114,5 +115,6 @@ SP_staticPolicy::getVictim(int64_t set) const
     
     else{
         return smallest_index_cpu;
-
+     
+    }
 }

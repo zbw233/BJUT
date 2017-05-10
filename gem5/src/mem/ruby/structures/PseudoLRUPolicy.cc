@@ -94,7 +94,7 @@ PseudoLRUPolicy::touch(string name,int64_t set, int64_t index, Tick time)
 }
 
 int64_t
-PseudoLRUPolicy::getVictim(int64_t set) const
+PseudoLRUPolicy::getVictim(string name, int64_t set) const
 {
     int64_t index = 0;
 

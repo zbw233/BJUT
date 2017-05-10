@@ -328,9 +328,9 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
                   } else {
                       // No room in the L1, so we need to make room in the L1
                       trigger(Event:L1_Replacement,
-                              L1Icache.cacheProbe(in_msg.LineAddress),
-                              getL1ICacheEntry(L1Icache.cacheProbe(in_msg.LineAddress)),
-                              TBEs[L1Icache.cacheProbe(in_msg.LineAddress)]);
+                              L1Icache.cacheProbe(requesterId,in_msg.LineAddress),
+                              getL1ICacheEntry(L1Icache.cacheProbe(requesterId,in_msg.LineAddress)),
+                              TBEs[L1Icache.cacheProbe(requesterId,in_msg.LineAddress)]);
                   }
               } else {
                   // Data prefetch
@@ -362,9 +362,9 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
                   } else {
                       // No room in the L1, so we need to make room in the L1
                       trigger(Event:L1_Replacement,
-                              L1Dcache.cacheProbe(in_msg.LineAddress),
-                              getL1DCacheEntry(L1Dcache.cacheProbe(in_msg.LineAddress)),
-                              TBEs[L1Dcache.cacheProbe(in_msg.LineAddress)]);
+                              L1Dcache.cacheProbe(requesterId,in_msg.LineAddress),
+                              getL1DCacheEntry(L1Dcache.cacheProbe(requesterId,in_msg.LineAddress)),
+                              TBEs[L1Dcache.cacheProbe(requesterId,in_msg.LineAddress)]);
                   }
               }
           }
@@ -469,9 +469,9 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
                       L1Icache_entry, TBEs[in_msg.LineAddress]);
             } else {
               // No room in the L1, so we need to make room in the L1
-              trigger(Event:L1_Replacement, L1Icache.cacheProbe(in_msg.LineAddress),
-                      getL1ICacheEntry(L1Icache.cacheProbe(in_msg.LineAddress)),
-                      TBEs[L1Icache.cacheProbe(in_msg.LineAddress)]);
+              trigger(Event:L1_Replacement, L1Icache.cacheProbe(requesterId,in_msg.LineAddress),
+                      getL1ICacheEntry(L1Icache.cacheProbe(requesterId,in_msg.LineAddress)),
+                      TBEs[L1Icache.cacheProbe(requesterId,in_msg.LineAddress)]);
             }
           }
         } else {
@@ -499,9 +499,9 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
                       L1Dcache_entry, TBEs[in_msg.LineAddress]);
             } else {
               // No room in the L1, so we need to make room in the L1
-              trigger(Event:L1_Replacement, L1Dcache.cacheProbe(in_msg.LineAddress),
-                      getL1DCacheEntry(L1Dcache.cacheProbe(in_msg.LineAddress)),
-                      TBEs[L1Dcache.cacheProbe(in_msg.LineAddress)]);
+              trigger(Event:L1_Replacement, L1Dcache.cacheProbe(requesterId,in_msg.LineAddress),
+                      getL1DCacheEntry(L1Dcache.cacheProbe(requesterId,in_msg.LineAddress)),
+                      TBEs[L1Dcache.cacheProbe(requesterId,in_msg.LineAddress)]);
             }
           }
         }

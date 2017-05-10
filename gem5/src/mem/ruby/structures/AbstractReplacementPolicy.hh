@@ -49,7 +49,7 @@ class AbstractReplacementPolicy : public SimObject
     virtual void touch(string name, int64_t set, int64_t way, Tick time) = 0;
 
     /* returns the way to replace */
-    virtual int64_t getVictim(int64_t set) const = 0;
+    virtual int64_t getVictim(string name, int64_t set) const = 0;
 
     /* get the time of the last access */
     Tick getLastAccess(int64_t set, int64_t way);

@@ -147,7 +147,7 @@ structure(AbstractCacheEntry, primitive="yes", external = "yes") {
 
 structure (CacheMemory, external = "yes") {
   bool cacheAvail(Addr);
-  Addr cacheProbe(Addr);
+  Addr cacheProbe(std::string, Addr);
   AbstractCacheEntry allocate(std::string, Addr, AbstractCacheEntry);
   AbstractCacheEntry allocate(std::string, Addr, AbstractCacheEntry, bool);
   void allocateVoid(Addr, AbstractCacheEntry);

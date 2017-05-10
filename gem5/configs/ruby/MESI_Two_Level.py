@@ -133,10 +133,13 @@ def create_system(options, full_system, system, dma_ports, ruby_system):
         l2_cache = L2Cache(size = options.l2_size,
                            assoc = options.l2_assoc,
                            start_index_bit = l2_index_start)
+
                            
         if options.l2_replacement_policy:
             if options.l2_replacement_policy == 'LRU':
                 l2_cache.replacement_policy = LRUReplacementPolicy()
+            elif options.l2_replacement_policy == 'SE_static':
+                l2_cache.replacement_policy = SE_staticReplacementPolicy(options.min_gpu_partition_size,options.min_gpu_partition_size)
             #~ elif options.l2_replacement_policy == 'Random':
                 #~ l2_cache.replacement_policy = RandomRepl()
             #~ elif options.l2_replacement_policy == 'IbRDP':

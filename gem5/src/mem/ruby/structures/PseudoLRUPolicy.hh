@@ -59,7 +59,7 @@ class PseudoLRUPolicy : public AbstractReplacementPolicy
     ~PseudoLRUPolicy();
 
     void touch(string name, int64_t set, int64_t way, Tick time);
-    int64_t getVictim(int64_t set) const;
+    int64_t getVictim(string name, int64_t set) const;
 
   private:
     unsigned int m_effective_assoc;    /** nearest (to ceiling) power of 2 */

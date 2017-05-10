@@ -45,7 +45,7 @@ class SP_staticPolicy : public AbstractReplacementPolicy
     ~SP_staticPolicy();
 
     void touch(string name, int64_t set, int64_t way, Tick time);
-    int64_t getVictim(int64_t set) const;
+    int64_t getVictim(string name, int64_t set) const;
     
     int minGpuPartitionSize;
     int maxGpuPartitionSize;

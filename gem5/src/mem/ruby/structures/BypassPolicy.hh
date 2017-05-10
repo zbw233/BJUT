@@ -45,7 +45,7 @@ class BypassPolicy : public AbstractReplacementPolicy
     ~BypassPolicy();
 
     void touch(string name, int64_t set, int64_t way, Tick time);
-    int64_t getVictim(int64_t set) const;
+    int64_t getVictim(string name, int64_t set) const;
 };
 
 #endif // __MEM_RUBY_STRUCTURES_BypassPOLICY_HH__

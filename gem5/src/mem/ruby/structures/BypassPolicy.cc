@@ -61,7 +61,7 @@ BypassPolicy::touch(string name, int64_t set, int64_t index, Tick time)
 }
 
 int64_t
-BypassPolicy::getVictim(int64_t set) const
+BypassPolicy::getVictim(string name, int64_t set) const
 {
     Tick time;
 

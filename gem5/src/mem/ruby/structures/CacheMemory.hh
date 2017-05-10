@@ -88,7 +88,7 @@ class CacheMemory : public SimObject
     void deallocate(Addr address);
 
     // Returns with the physical address of the conflicting cache line
-    Addr cacheProbe(Addr address) const;
+    Addr cacheProbe(string name, Addr address) const;
 
     // looks an address up in the cache
     AbstractCacheEntry* lookup(Addr address);

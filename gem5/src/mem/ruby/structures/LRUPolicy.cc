@@ -59,7 +59,7 @@ LRUPolicy::touch(string name, int64_t set, int64_t index, Tick time)
 }
 
 int64_t
-LRUPolicy::getVictim(int64_t set) const
+LRUPolicy::getVictim(string name, int64_t set) const
 {
     Tick time, smallest_time;
     int64_t smallest_index = 0;

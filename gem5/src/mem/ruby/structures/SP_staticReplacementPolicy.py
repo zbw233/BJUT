@@ -37,5 +37,6 @@ class SP_staticReplacementPolicy(ReplacementPolicy):
     type = 'SP_staticReplacementPolicy'
     cxx_class = 'SP_staticPolicy'
     cxx_header = 'mem/ruby/structures/SP_staticPolicy.hh'
-
+    min_gpu_partition_size = Param.Int(-1, "min GPU partion size")
+    max_gpu_partition_size = Param.Int(-1, "max GPU partion size")
 

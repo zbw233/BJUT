@@ -298,13 +298,13 @@ CacheMemory::deallocate(Addr address)
 
 // Returns with the physical address of the conflicting cache line
 Addr
-CacheMemory::cacheProbe(Addr address) const
+CacheMemory::cacheProbe(string name, Addr address) const
 {
     assert(address == makeLineAddress(address));
     assert(!cacheAvail(address));
 
     int64_t cacheSet = addressToCacheSet(address);
-    return m_cache[cacheSet][m_replacementPolicy_ptr->getVictim(cacheSet)]->
+    return m_cache[cacheSet][m_replacementPolicy_ptr->getVictim(name, cacheSet)]->
         m_Address;
 }
 

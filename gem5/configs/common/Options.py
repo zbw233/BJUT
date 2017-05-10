@@ -124,6 +124,9 @@ def addCommonOptions(parser):
     parser.add_option("--l2_assoc", type="int", default=8)
     parser.add_option("--l3_assoc", type="int", default=16)
     parser.add_option("--cacheline_size", type="int", default=64)
+    parser.add_option("--min_gpu_partition_size", type="int", default=-1)
+    parser.add_option("--max_gpu_partition_size", type="int", default=-1)
+
 
     # Enable Ruby
     parser.add_option("--ruby", action="store_true")
