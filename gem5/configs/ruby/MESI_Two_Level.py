@@ -133,7 +133,34 @@ def create_system(options, full_system, system, dma_ports, ruby_system):
         l2_cache = L2Cache(size = options.l2_size,
                            assoc = options.l2_assoc,
                            start_index_bit = l2_index_start)
+                           
+        if options.l2_replacement_policy:
+            if options.l2_replacement_policy == 'LRU':
+                l2_cache.replacement_policy = LRUReplacementPolicy()
+            #~ elif options.l2_replacement_policy == 'Random':
+                #~ l2_cache.replacement_policy = RandomRepl()
+            #~ elif options.l2_replacement_policy == 'IbRDP':
+                #~ l2_cache.replacement_policy = IbRDP()
+            #~ elif options.l2_replacement_policy == 'RRIP':
+                #~ l2_cache.replacement_policy = RRIP()
+            #~ elif options.l2_replacement_policy == 'DBRSP':
+                #~ sl2_cache.replacement_policy = DBRSP()
+            #~ elif options.l2_replacement_policy == 'RECAP':
+                #~ l2_cache.replacement_policy = RECAP()
+            #~ elif options.l2_replacement_policy == 'HMM':
+                #~ l2_cache.replacement_policy = HMM()
+            #~ elif options.l2_replacement_policy == 'HAP_STATIC':
+                #~ l2_cache.replacement_policy = HAPStatic(min_nvm_partition_size = options.min_nvm_partition_size,
+                                           #~ max_nvm_partition_size = options.max_nvm_partition_size)
+            #~ elif options.l2_replacement_policy == 'HAP_DYNAMIC':
+                #~ l2_cache.replacement_policy = HAPDynamic()
+            elif options.l2_replacement_policy == 'BYPASS':
+                l2_cache.replacement_policy = BypassReplacementPolicy()()
 
+            else:
+                print 'L2 replacepolicy: ' + options.l2_replacement_policy + ' is not supported.'
+                sys.exit(-1)
+     
         l2_cntrl = L2Cache_Controller(version = i,
                                       L2cache = l2_cache,
                                       transitions_per_cycle=options.ports,

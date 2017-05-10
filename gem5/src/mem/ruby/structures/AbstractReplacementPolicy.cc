@@ -36,10 +36,13 @@ AbstractReplacementPolicy::AbstractReplacementPolicy(const Params * p)
     m_num_sets = p->size/p->block_size/p->assoc;
     m_assoc = p->assoc;
     m_last_ref_ptr = new Tick*[m_num_sets];
+    is_gpu_request = new bool*[m_num_sets];
     for(unsigned i = 0; i < m_num_sets; i++){
         m_last_ref_ptr[i] = new Tick[m_assoc];
+        is_gpu_request[i] = new bool[m_assoc];
         for(unsigned j = 0; j < m_assoc; j++){
             m_last_ref_ptr[i][j] = 0;
+            is_gpu_request[i][j] = 0;
         }
     }
 }
@@ -63,6 +66,14 @@ AbstractReplacementPolicy::~AbstractReplacementPolicy()
         }
         delete[] m_last_ref_ptr;
     }
+    if (is_gpu_request != NULL){
+            for (unsigned i = 0; i < m_num_sets; i++){
+                if (is_gpu_request[i] != NULL){
+                    delete[] is_gpu_request[i];
+                }
+            }
+            delete[] is_gpu_request;
+        }
 }
 
 Tick

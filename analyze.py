@@ -3,8 +3,16 @@ from gem5_utils import parse_result, to_csv, generate_plot
 
 # Define benchmark names.
 benchmarks = [
-    #~ 'cell/gem5_fusion_cell',
-    'backprop/gem5_fusion_backprop',
+    'backprop',
+    'kmeans',
+    'heartwall',
+    'backprop',
+    'bfs',
+    'nw',
+    'pathfinder',
+    #~ 'srad',
+    #~ 'strmcluster',
+    #~ 'cell',
     #~ 'canneal',
     #~ 'dedup',
     # 'facesim',
@@ -26,11 +34,13 @@ def parse_results_l2_sizes():
         #~ for l2_size in ['256kB', '512kB', '1MB', '2MB', '4MB', '8MB']:
         #~ for l2_size in ['256kB', '512kB']:
         for l2_size in ['256kB']:
-            results.append(
-                parse_result('results/' +
-                             benchmark + '/' + l2_size + '/8way/2c/',
-                             benchmark=benchmark,
-                             l2_size=l2_size)
+            for l2_replacement_policy in ['LRU', 'BYPASS']:
+                results.append(
+                    parse_result('results/' +
+                                benchmark + '/' + l2_size + '/8way/' + l2_replacement_policy + '/2c/',
+                                benchmark=benchmark,
+                                l2_size=l2_size,
+                                l2_replacement_policy=l2_replacement_policy)
             )
             
     def l2_hit_rate(stats):
@@ -40,6 +50,7 @@ def parse_results_l2_sizes():
         
     to_csv('results/l2_sizes.csv', results, [
         ('Benchmark', lambda r: r.props['benchmark']),
+        ('ReplacementPolicy', lambda r: r.props['l2_replacement_policy']),
         ('L2 Size', lambda r: r.props['l2_size']),
         ('L2 Accesses', lambda r: r.stats[0]['system.ruby.l2_cntrl0.L2cache.demand_accesses']),
         ('L2 Hit Rate', lambda r: l2_hit_rate(r.stats)),

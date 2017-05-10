@@ -63,6 +63,7 @@ class AbstractReplacementPolicy : public SimObject
     unsigned m_num_sets;       /** total number of sets */
     unsigned m_assoc;          /** set associativity */
     Tick **m_last_ref_ptr;         /** timestamp of last reference */
+    bool **is_gpu_request;         /** is_gpu_request*/
 };
 
 #endif // __MEM_RUBY_STRUCTURES_ABSTRACTREPLACEMENTPOLICY_HH__
