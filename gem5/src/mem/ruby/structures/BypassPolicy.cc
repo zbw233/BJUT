@@ -55,11 +55,8 @@ BypassPolicy::touch(string name, int64_t set, int64_t index, Tick time)
 {
     assert(index >= 0 && index < m_assoc);
     assert(set >= 0 && set < m_num_sets);
-    string m_name = name;
-    if(name.find("l1_cntrl_sp"))
-        is_gpu_request[set][index] = true;
-    else
-        is_gpu_request[set][index] = false;
+    
+    is_gpu_request[set][index] = name.find("l1_cntrl_sp");
     m_last_ref_ptr[set][index] = time;
 }
 
@@ -72,14 +69,15 @@ BypassPolicy::getVictim(int64_t set) const
 
     for (unsigned i = 0; i < m_assoc; i++) {
         time = m_last_ref_ptr[set][i];
+        
         if(is_gpu_request[set][i]){
             smallest_index = i;
             return smallest_index;
         }
         else{
             if (time < smallest_time) {
-            smallest_index = i;
-            smallest_time = time;
+                smallest_index = i;
+                smallest_time = time;
             }
         }
     }
