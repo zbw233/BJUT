@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Advanced Micro Devices, Inc
+ * Copyright (c) 2007 Mark D. Hill and David A. Wood
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,60 +24,31 @@
  * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * Author: Derek Hower
  */
 
+#ifndef __MEM_RUBY_STRUCTURES_SP_staticPOLICY_HH__
+#define __MEM_RUBY_STRUCTURES_SP_staticPOLICY_HH__
+
 #include "mem/ruby/structures/AbstractReplacementPolicy.hh"
+#include "params/SP_staticReplacementPolicy.hh"
+#include <string>
 
-AbstractReplacementPolicy::AbstractReplacementPolicy(const Params * p)
-  : SimObject(p)
+using namespace std; 
+
+/* Simple true SP_static replacement policy */
+
+class SP_staticPolicy : public AbstractReplacementPolicy
 {
-    m_num_sets = p->size/p->block_size/p->assoc;
-    m_assoc = p->assoc;
-    m_last_ref_ptr = new Tick*[m_num_sets];
-    is_gpu_request = new bool*[m_num_sets];
-    for(unsigned i = 0; i < m_num_sets; i++){
-        m_last_ref_ptr[i] = new Tick[m_assoc];
-        is_gpu_request[i] = new bool[m_assoc];
-        for(unsigned j = 0; j < m_assoc; j++){
-            m_last_ref_ptr[i][j] = 0;
-            is_gpu_request[i][j] = false;
-        }
-    }
-}
+  public:
+    typedef SP_staticReplacementPolicyParams Params;
+    SP_staticPolicy(const Params * p);
+    ~SP_staticPolicy();
 
-AbstractReplacementPolicy *
-ReplacementPolicyParams::create()
-{
-    fatal("Cannot create an AbstractReplacementPolicy");
-    return NULL;
-}
+    void touch(string name, int64_t set, int64_t way, Tick time);
+    int64_t getVictim(int64_t set) const;
+    
+    int minGpuPartitionSize;
+    int maxGpuPartitionSize;
+};
 
-
-
-AbstractReplacementPolicy::~AbstractReplacementPolicy()
-{
-    if (m_last_ref_ptr != NULL){
-        for (unsigned i = 0; i < m_num_sets; i++){
-            if (m_last_ref_ptr[i] != NULL){
-                delete[] m_last_ref_ptr[i];
-            }
-        }
-        delete[] m_last_ref_ptr;
-    }
-    if (is_gpu_request != NULL){
-            for (unsigned i = 0; i < m_num_sets; i++){
-                if (is_gpu_request[i] != NULL){
-                    delete[] is_gpu_request[i];
-                }
-            }
-            delete[] is_gpu_request;
-        }
-}
-
-Tick
-AbstractReplacementPolicy::getLastAccess(int64_t set, int64_t way)
-{
-    return m_last_ref_ptr[set][way];
-}
+#endif // __MEM_RUBY_STRUCTURES_SP_staticPOLICY_HH__
