@@ -81,18 +81,19 @@ SP_staticPolicy::getVictim(string name, int64_t set) const
     for (unsigned i = 0; i < m_assoc; i++) {
         time = m_last_ref_ptr[set][i];
 
-        if (is_gpu_request[set][i] )
+        if (is_gpu_request[set][i]){
             numGpuLines++;
             
             if (time < smallest_time_gpu || smallest_time_gpu == -1) {
                 smallest_index_gpu = i;
                 smallest_time_gpu = time;
+            }
         }
     }
 
     if(numGpuLines > maxGpuPartitionSize && name.find("l1_cntrl_sp"))
         return smallest_index_gpu;
-    }
+    
 
     for (unsigned i = 0; i < m_assoc; i++) {
         time = m_last_ref_ptr[set][i];

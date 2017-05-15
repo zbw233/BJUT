@@ -3,15 +3,15 @@ from gem5_utils import parse_result, to_csv, generate_plot
 
 # Define benchmark names.
 benchmarks = [
-    'backprop',
-    'kmeans',
+    #~ 'backprop',
+    #~ 'kmeans',
     'heartwall',
-    'hotspot',
+    #~ 'hotspot',
     'bfs',
     'nw',
-    'pathfinder',
-    'srad',
-    #~ 'strmcluster',
+    #~ 'pathfinder',
+    #~ 'srad',
+    'strmcluster',
     #~ 'cell',
     #~ 'canneal',
     #~ 'dedup',
@@ -36,13 +36,31 @@ def parse_results_l2_sizes():
         #~ for l2_size in ['256kB', '512kB']:
         for l2_size in ['256kB']:
             for l2_replacement_policy in ['LRU', 'BYPASS']:
-                results.append(
-                    parse_result('results/' +
-                                benchmark + '/' + l2_size + '/8way/' + l2_replacement_policy + '/2c/',
-                                benchmark=benchmark,
-                                l2_size=l2_size,
-                                l2_replacement_policy=l2_replacement_policy)
-            )
+                 for min_gpu_partition_size in [-1]:
+                    for max_gpu_partition_size in [-1]:
+                        results.append(
+                            parse_result('results/' +
+                                        benchmark + '/' + l2_size + '/8way/' + 'nvm_' + str(min_gpu_partition_size) + '-' + str(max_gpu_partition_size) + '/' + l2_replacement_policy + '/2c/',
+                                        benchmark=benchmark,
+                                        l2_size=l2_size,
+                                        max_gpu_partition_size=max_gpu_partition_size,
+                                        min_gpu_partition_size=min_gpu_partition_size,
+                                        l2_replacement_policy=l2_replacement_policy)
+                        )
+        for l2_size in ['256kB']:
+            for l2_replacement_policy in ['SP_static']:
+                 for min_gpu_partition_size in [1,3,5,7]:
+                    for max_gpu_partition_size in [1,3,5,7]:
+                        if max_gpu_partition_size > min_gpu_partition_size:
+                            results.append(
+                                parse_result('results/' +
+                                            benchmark + '/' + l2_size + '/8way/' + 'nvm_' + str(min_gpu_partition_size) + '-' + str(max_gpu_partition_size) + '/' + l2_replacement_policy + '/2c/',
+                                            benchmark=benchmark,
+                                            l2_size=l2_size,
+                                            max_gpu_partition_size=max_gpu_partition_size,
+                                            min_gpu_partition_size=min_gpu_partition_size,
+                                            l2_replacement_policy=l2_replacement_policy)
+                        )
     
     def num_cycles(r):
         return int(r.stats[0]['system.{}.numCycles'.format('switch_cpus' if num_threads == 1 else 'switch_cpus0')])
@@ -77,6 +95,7 @@ def parse_results_l2_sizes():
     to_csv('results/l2_sizes.csv', results, [
         ('Benchmark', lambda r: r.props['benchmark']),
         ('ReplacementPolicy', lambda r: r.props['l2_replacement_policy']),
+        ('Min:Max GPU Partition Size', lambda r: str(int(r.props['min_gpu_partition_size'])) + ':' + str(int(r.props['max_gpu_partition_size']))),        
         ('L2 Size', lambda r: r.props['l2_size']),
         ('L2 Accesses', lambda r: r.stats[0]['system.ruby.l2_cntrl0.L2cache.demand_accesses']),
         ('L2 Replacements', lambda r: r.stats[0]['system.ruby.L2Cache_Controller.L2_Replacement']),
