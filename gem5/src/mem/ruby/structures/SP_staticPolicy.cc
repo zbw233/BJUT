@@ -59,7 +59,7 @@ SP_staticPolicy::touch(string name, int64_t set, int64_t index, Tick time)
     assert(index >= 0 && index < m_assoc);
     assert(set >= 0 && set < m_num_sets);
     
-    is_gpu_request[set][index] = name.find("l1_cntrl_sp");
+    is_gpu_request[set][index] = name.find("l1_cntrl_sp") != -1;
     m_last_ref_ptr[set][index] = time;
 }
 
@@ -91,7 +91,7 @@ SP_staticPolicy::getVictim(string name, int64_t set) const
         }
     }
 
-    if(numGpuLines > maxGpuPartitionSize && name.find("l1_cntrl_sp"))
+    if(numGpuLines > maxGpuPartitionSize && name.find("l1_cntrl_sp") != -1)
         return smallest_index_gpu;
     
 
@@ -104,7 +104,7 @@ SP_staticPolicy::getVictim(string name, int64_t set) const
         }
     }
     
-    if(numGpuLines < minGpuPartitionSize && !name.find("l1_cntrl_sp")) {
+    if(numGpuLines < minGpuPartitionSize && name.find("l1_cntrl_sp") == -1) {
         return smallest_index_cpu;
     
     }

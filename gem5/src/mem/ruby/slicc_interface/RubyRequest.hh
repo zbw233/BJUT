@@ -51,6 +51,7 @@ class RubyRequest : public Message
     uint8_t* data;
     PacketPtr pkt;
     ContextID m_contextId;
+    std::string m_requesterId;
 
     RubyRequest(Tick curTime, uint64_t _paddr, uint8_t* _data, int _len,
         uint64_t _pc, RubyRequestType _type, RubyAccessMode _access_mode,

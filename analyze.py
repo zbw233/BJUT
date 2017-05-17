@@ -3,15 +3,15 @@ from gem5_utils import parse_result, to_csv, generate_plot
 
 # Define benchmark names.
 benchmarks = [
-    #~ 'backprop',
+    'backprop',
     #~ 'kmeans',
-    'heartwall',
+    #~ 'heartwall',
     #~ 'hotspot',
-    'bfs',
-    'nw',
+    #~ 'bfs',
+    #~ 'nw',
     #~ 'pathfinder',
     #~ 'srad',
-    'strmcluster',
+    #~ 'strmcluster',
     #~ 'cell',
     #~ 'canneal',
     #~ 'dedup',
@@ -35,7 +35,7 @@ def parse_results_l2_sizes():
         #~ for l2_size in ['256kB', '512kB', '1MB', '2MB', '4MB', '8MB']:
         #~ for l2_size in ['256kB', '512kB']:
         for l2_size in ['256kB']:
-            for l2_replacement_policy in ['LRU', 'BYPASS']:
+            for l2_replacement_policy in ['LRU', 'Bypass']:
                  for min_gpu_partition_size in [-1]:
                     for max_gpu_partition_size in [-1]:
                         results.append(
@@ -47,20 +47,20 @@ def parse_results_l2_sizes():
                                         min_gpu_partition_size=min_gpu_partition_size,
                                         l2_replacement_policy=l2_replacement_policy)
                         )
-        for l2_size in ['256kB']:
-            for l2_replacement_policy in ['SP_static']:
-                 for min_gpu_partition_size in [1,3,5,7]:
-                    for max_gpu_partition_size in [1,3,5,7]:
-                        if max_gpu_partition_size > min_gpu_partition_size:
-                            results.append(
-                                parse_result('results/' +
-                                            benchmark + '/' + l2_size + '/8way/' + 'nvm_' + str(min_gpu_partition_size) + '-' + str(max_gpu_partition_size) + '/' + l2_replacement_policy + '/2c/',
-                                            benchmark=benchmark,
-                                            l2_size=l2_size,
-                                            max_gpu_partition_size=max_gpu_partition_size,
-                                            min_gpu_partition_size=min_gpu_partition_size,
-                                            l2_replacement_policy=l2_replacement_policy)
-                        )
+        #~ for l2_size in ['256kB']:
+            #~ for l2_replacement_policy in ['SP_static']:
+                 #~ for min_gpu_partition_size in [1,3,5,7]:
+                    #~ for max_gpu_partition_size in [1,3,5,7]:
+                        #~ if max_gpu_partition_size > min_gpu_partition_size:
+                            #~ results.append(
+                                #~ parse_result('results/' +
+                                            #~ benchmark + '/' + l2_size + '/8way/' + 'nvm_' + str(min_gpu_partition_size) + '-' + str(max_gpu_partition_size) + '/' + l2_replacement_policy + '/2c/',
+                                            #~ benchmark=benchmark,
+                                            #~ l2_size=l2_size,
+                                            #~ max_gpu_partition_size=max_gpu_partition_size,
+                                            #~ min_gpu_partition_size=min_gpu_partition_size,
+                                            #~ l2_replacement_policy=l2_replacement_policy)
+                        #~ )
     
     def num_cycles(r):
         return int(r.stats[0]['system.{}.numCycles'.format('switch_cpus' if num_threads == 1 else 'switch_cpus0')])

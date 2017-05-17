@@ -373,13 +373,13 @@ machine(L2Cache, "MESI Directory L2 Cache CMP")
                     in_msg.addr, cache_entry, tbe);
           } else {
             // No room in the L2, so we need to make room before handling the request
-            Entry L2cache_entry := getCacheEntry(L2cache.cacheProbe("L2",in_msg.addr));
+            Entry L2cache_entry := getCacheEntry(L2cache.cacheProbe(in_msg.requesterId,in_msg.addr));
             if (isDirty(L2cache_entry)) {
-              trigger(Event:L2_Replacement, L2cache.cacheProbe("L2",in_msg.addr),
-                      L2cache_entry, TBEs[L2cache.cacheProbe("L2",in_msg.addr)]);
+              trigger(Event:L2_Replacement, L2cache.cacheProbe(in_msg.requesterId,in_msg.addr),
+                      L2cache_entry, TBEs[L2cache.cacheProbe(in_msg.requesterId,in_msg.addr)]);
             } else {
-              trigger(Event:L2_Replacement_clean, L2cache.cacheProbe("L2",in_msg.addr),
-                      L2cache_entry, TBEs[L2cache.cacheProbe("L2",in_msg.addr)]);
+              trigger(Event:L2_Replacement_clean, L2cache.cacheProbe(in_msg.requesterId,in_msg.addr),
+                      L2cache_entry, TBEs[L2cache.cacheProbe(in_msg.requesterId,in_msg.addr)]);
             }
           }
         }
@@ -668,12 +668,16 @@ machine(L2Cache, "MESI Directory L2 Cache CMP")
   }
 
   action(set_setMRU, "\set", desc="set the MRU entry") {
-    L2cache.setMRU("L2", address);
+    peek(L1RequestL2Network_in, RequestMsg){
+        L2cache.setMRU(in_msg.requesterId, address);
+    }
   }
 
   action(qq_allocateL2CacheBlock, "\q", desc="Set L2 cache tag equal to tag of block B.") {
-    if (is_invalid(cache_entry)) {
-      set_cache_entry(L2cache.allocate("L2", address, new Entry));
+    peek(L1RequestL2Network_in, RequestMsg){
+        if (is_invalid(cache_entry)) {
+        set_cache_entry(L2cache.allocate(in_msg.requesterId, address, new Entry));
+        }
     }
   }
 

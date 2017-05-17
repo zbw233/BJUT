@@ -514,6 +514,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
           out_msg.LineAddress := address;
           out_msg.Type := type;
           out_msg.AccessMode := RubyAccessMode:Supervisor;
+          out_msg.requesterId := requesterId;
       }
   }
 
@@ -531,6 +532,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
         out_msg.MessageSize := MessageSizeType:Control;
         out_msg.Prefetch := in_msg.Prefetch;
         out_msg.AccessMode := in_msg.AccessMode;
+        out_msg.requesterId := requesterId;
       }
     }
   }
@@ -548,6 +550,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
         out_msg.MessageSize := MessageSizeType:Control;
         out_msg.Prefetch := in_msg.Prefetch;
         out_msg.AccessMode := in_msg.AccessMode;
+        out_msg.requesterId := requesterId;
       }
     }
   }
@@ -565,6 +568,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
         out_msg.MessageSize := MessageSizeType:Control;
         out_msg.Prefetch := in_msg.Prefetch;
         out_msg.AccessMode := in_msg.AccessMode;
+        out_msg.requesterId := requesterId;
       }
     }
   }
@@ -582,6 +586,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
               out_msg.MessageSize := MessageSizeType:Control;
               out_msg.Prefetch := in_msg.Prefetch;
               out_msg.AccessMode := in_msg.AccessMode;
+              out_msg.requesterId := requesterId;
 
               DPRINTF(RubySlicc, "address: %s, destination: %s\n",
                       address, out_msg.Destination);
@@ -603,6 +608,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
         out_msg.MessageSize := MessageSizeType:Control;
         out_msg.Prefetch := in_msg.Prefetch;
         out_msg.AccessMode := in_msg.AccessMode;
+        out_msg.requesterId := requesterId;
       }
     }
   }
@@ -623,6 +629,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
               out_msg.MessageSize := MessageSizeType:Control;
               out_msg.Prefetch := in_msg.Prefetch;
               out_msg.AccessMode := in_msg.AccessMode;
+              out_msg.requesterId := requesterId;
           }
       }
   }
@@ -640,6 +647,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
         out_msg.MessageSize := MessageSizeType:Control;
         out_msg.Prefetch := in_msg.Prefetch;
         out_msg.AccessMode := in_msg.AccessMode;
+        out_msg.requesterId := requesterId;
       }
     }
   }
@@ -655,6 +663,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
         out_msg.Sender := machineID;
         out_msg.Destination.add(in_msg.Requestor);
         out_msg.MessageSize := MessageSizeType:Response_Data;
+        out_msg.requesterId := requesterId;
       }
     }
   }
@@ -670,6 +679,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
       out_msg.Destination.add(mapAddressToRange(address, MachineType:L2Cache,
                           l2_select_low_bit, l2_select_num_bits, intToID(0)));
       out_msg.MessageSize := MessageSizeType:Response_Data;
+      out_msg.requesterId := requesterId;
     }
   }
 
@@ -684,6 +694,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
         out_msg.Sender := machineID;
         out_msg.Destination.add(in_msg.Requestor);
         out_msg.MessageSize := MessageSizeType:Response_Data;
+        out_msg.requesterId := requesterId;
       }
     }
   }
@@ -699,6 +710,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
       out_msg.Destination.add(mapAddressToRange(address, MachineType:L2Cache,
                           l2_select_low_bit, l2_select_num_bits, intToID(0)));
       out_msg.MessageSize := MessageSizeType:Response_Data;
+      out_msg.requesterId := requesterId;
     }
   }
 
@@ -710,6 +722,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
         out_msg.Sender := machineID;
         out_msg.Destination.add(in_msg.Requestor);
         out_msg.MessageSize := MessageSizeType:Response_Control;
+        out_msg.requesterId := requesterId;
       }
     }
   }
@@ -725,6 +738,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
       out_msg.Destination.add(mapAddressToRange(address, MachineType:L2Cache,
                           l2_select_low_bit, l2_select_num_bits, intToID(0)));
       out_msg.MessageSize := MessageSizeType:Writeback_Data;
+      out_msg.requesterId := requesterId;
     }
   }
 
@@ -739,6 +753,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
       out_msg.Destination.add(mapAddressToRange(address, MachineType:L2Cache,
                           l2_select_low_bit, l2_select_num_bits, intToID(0)));
       out_msg.MessageSize := MessageSizeType:Writeback_Data;
+      out_msg.requesterId := requesterId;
     }
   }
 
@@ -751,6 +766,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
         out_msg.Destination.add(in_msg.Requestor);
         out_msg.MessageSize := MessageSizeType:Response_Control;
         out_msg.AckCount := 1;
+        out_msg.requesterId := requesterId;
       }
     }
   }
@@ -772,6 +788,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
       out_msg.Requestor:= machineID;
       out_msg.Destination.add(mapAddressToRange(address, MachineType:L2Cache,
                           l2_select_low_bit, l2_select_num_bits, intToID(0)));
+      out_msg.requesterId := requesterId;
       if (cache_entry.Dirty) {
         out_msg.MessageSize := MessageSizeType:Writeback_Data;
       } else {
@@ -788,6 +805,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
       out_msg.Destination.add(mapAddressToRange(address, MachineType:L2Cache,
                           l2_select_low_bit, l2_select_num_bits, intToID(0)));
       out_msg.MessageSize := MessageSizeType:Response_Control;
+      out_msg.requesterId := requesterId;
       DPRINTF(RubySlicc, "%s\n", address);
     }
   }
@@ -800,6 +818,7 @@ machine(L1Cache, "MESI Directory L1 Cache CMP")
       out_msg.Destination.add(mapAddressToRange(address, MachineType:L2Cache,
                           l2_select_low_bit, l2_select_num_bits, intToID(0)));
       out_msg.MessageSize := MessageSizeType:Response_Control;
+      out_msg.requesterId := requesterId;
       DPRINTF(RubySlicc, "%s\n", address);
 
     }
