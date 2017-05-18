@@ -20690,7 +20690,7 @@
                     "size": 64
                 }, 
                 "simpoint_start_insts": [], 
-                "max_insts_any_thread": 1000000, 
+                "max_insts_any_thread": 200000000, 
                 "progress_interval": 0, 
                 "branchPred": null, 
                 "isa": [
@@ -20775,7 +20775,7 @@
                     "size": 64
                 }, 
                 "simpoint_start_insts": [], 
-                "max_insts_any_thread": 1000000, 
+                "max_insts_any_thread": 200000000, 
                 "progress_interval": 0, 
                 "branchPred": null, 
                 "isa": [
@@ -20950,7 +20950,7 @@
                     "size": 64
                 }, 
                 "simpoint_start_insts": [], 
-                "max_insts_any_thread": 10000000, 
+                "max_insts_any_thread": 100000, 
                 "progress_interval": 0, 
                 "branchPred": null, 
                 "isa": [
@@ -21083,7 +21083,7 @@
                     "size": 64
                 }, 
                 "simpoint_start_insts": [], 
-                "max_insts_any_thread": 10000000, 
+                "max_insts_any_thread": 100000, 
                 "progress_interval": 0, 
                 "branchPred": null, 
                 "isa": [

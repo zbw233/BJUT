@@ -7,11 +7,11 @@ benchmarks = [
     #~ 'kmeans',
     #~ 'heartwall',
     #~ 'hotspot',
-    #~ 'bfs',
-    #~ 'nw',
+    'bfs',
+    'nw',
     #~ 'pathfinder',
-    #~ 'srad',
-    #~ 'strmcluster',
+    'srad',
+    'strmcluster',
     #~ 'cell',
     #~ 'canneal',
     #~ 'dedup',
@@ -47,20 +47,33 @@ def parse_results_l2_sizes():
                                         min_gpu_partition_size=min_gpu_partition_size,
                                         l2_replacement_policy=l2_replacement_policy)
                         )
-        #~ for l2_size in ['256kB']:
-            #~ for l2_replacement_policy in ['SP_static']:
-                 #~ for min_gpu_partition_size in [1,3,5,7]:
-                    #~ for max_gpu_partition_size in [1,3,5,7]:
-                        #~ if max_gpu_partition_size > min_gpu_partition_size:
-                            #~ results.append(
-                                #~ parse_result('results/' +
-                                            #~ benchmark + '/' + l2_size + '/8way/' + 'nvm_' + str(min_gpu_partition_size) + '-' + str(max_gpu_partition_size) + '/' + l2_replacement_policy + '/2c/',
-                                            #~ benchmark=benchmark,
-                                            #~ l2_size=l2_size,
-                                            #~ max_gpu_partition_size=max_gpu_partition_size,
-                                            #~ min_gpu_partition_size=min_gpu_partition_size,
-                                            #~ l2_replacement_policy=l2_replacement_policy)
-                        #~ )
+        for l2_size in ['256kB']:
+            for l2_replacement_policy in ['SP_static']:
+                 for min_gpu_partition_size in [1,3,5]:
+                    for max_gpu_partition_size in [3,5]:
+                        if max_gpu_partition_size > min_gpu_partition_size:
+                            results.append(
+                                parse_result('results/' +
+                                            benchmark + '/' + l2_size + '/8way/' + 'nvm_' + str(min_gpu_partition_size) + '-' + str(max_gpu_partition_size) + '/' + l2_replacement_policy + '/2c/',
+                                            benchmark=benchmark,
+                                            l2_size=l2_size,
+                                            max_gpu_partition_size=max_gpu_partition_size,
+                                            min_gpu_partition_size=min_gpu_partition_size,
+                                            l2_replacement_policy=l2_replacement_policy)
+                            )
+        for l2_size in ['256kB']:
+            for l2_replacement_policy in ['SP_static']:
+                 for min_gpu_partition_size in [4]:
+                    for max_gpu_partition_size in [4]:
+                        results.append(
+                            parse_result('results/' +
+                                        benchmark + '/' + l2_size + '/8way/' + 'nvm_' + str(min_gpu_partition_size) + '-' + str(max_gpu_partition_size) + '/' + l2_replacement_policy + '/2c/',
+                                        benchmark=benchmark,
+                                        l2_size=l2_size,
+                                        max_gpu_partition_size=max_gpu_partition_size,
+                                        min_gpu_partition_size=min_gpu_partition_size,
+                                        l2_replacement_policy=l2_replacement_policy)
+                        )
     
     def num_cycles(r):
         return int(r.stats[0]['system.{}.numCycles'.format('switch_cpus' if num_threads == 1 else 'switch_cpus0')])
@@ -107,11 +120,17 @@ def parse_results_l2_sizes():
     ])
 
     generate_plot('results/l2_sizes.csv',
-                  'results/l2_sizes_vs_l2_hit_rate.pdf', 'Benchmark', 'L2 Hit Rate',
-                  'L2 Size', 'L2 Hit Rate')
+                  'results/Benchmark_vs_l2_hit_rate.pdf', 'Benchmark', 'L2 Hit Rate',
+                  'ReplacementPolicy', 'L2 Hit Rate')
     generate_plot('results/l2_sizes.csv',
-                  'results/l2_sizes_vs_num_cycles.pdf', 'Benchmark', '# Cycles',
-                  'L2 Size', '# Cycles')
+                  'results/Benchmark_vs_l2_replacement.pdf', 'Benchmark', 'L2 Replacements',
+                  'ReplacementPolicy', 'L2 Replacements')
+    generate_plot('results/l2_sizes.csv',
+                  'results/Min:Max_GPU_Partition_Size_vs_l2_replacement.pdf', 'Benchmark', 'L2 Replacements',
+                  'Min:Max GPU Partition Size', 'L2 Replacements')
+    generate_plot('results/l2_sizes.csv',
+                  'results/Min:Max_GPU_Partition_Size_vs_L2_Hit_Rate.pdf', 'Benchmark', 'L2 Hit Rate',
+                  'Min:Max GPU Partition Size', 'L2 Hit Rate')
 
     return results
 

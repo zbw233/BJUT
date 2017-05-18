@@ -20692,7 +20692,7 @@
                     "size": 64
                 }, 
                 "simpoint_start_insts": [], 
-                "max_insts_any_thread": 1000000, 
+                "max_insts_any_thread": 200000000, 
                 "progress_interval": 0, 
                 "branchPred": null, 
                 "isa": [
@@ -20777,7 +20777,7 @@
                     "size": 64
                 }, 
                 "simpoint_start_insts": [], 
-                "max_insts_any_thread": 1000000, 
+                "max_insts_any_thread": 200000000, 
                 "progress_interval": 0, 
                 "branchPred": null, 
                 "isa": [
@@ -20915,11 +20915,11 @@
                         "name": "workload", 
                         "cmd": [
                             "/home/zhangbowen/IdeaProjects/BJUT/benchmarks/rodinia/hotspot/gem5_fusion_hotspot", 
-                            "16", 
+                            "512", 
                             "2", 
                             "2", 
-                            "benchmarks/rodinia/data/hotspot/temp_512", 
-                            "benchmarks/rodinia/data/hotspot/power_512", 
+                            "benchmarks/rodinia/data/hotspot/temp_1024", 
+                            "benchmarks/rodinia/data/hotspot/power_1024", 
                             "output.out"
                         ], 
                         "errout": "cerr", 
@@ -20953,7 +20953,7 @@
                     "size": 64
                 }, 
                 "simpoint_start_insts": [], 
-                "max_insts_any_thread": 10000000, 
+                "max_insts_any_thread": 100000, 
                 "progress_interval": 0, 
                 "branchPred": null, 
                 "isa": [
@@ -21086,7 +21086,7 @@
                     "size": 64
                 }, 
                 "simpoint_start_insts": [], 
-                "max_insts_any_thread": 10000000, 
+                "max_insts_any_thread": 100000, 
                 "progress_interval": 0, 
                 "branchPred": null, 
                 "isa": [

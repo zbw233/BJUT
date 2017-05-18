@@ -1,13 +1,13 @@
 copy engine frequency: 0.69979 GHz
 copy engine period: 1429 ticks
 memcpy times in ticks:
-
+84360027, 1546082569, 73973376, 5067844, 1625146064, 1409985380, 97305762, 1380123962, 
 memcpy sizes in bytes:
-
-average ticks per memcpy = 0
-minimum ticks per memcpy = 18446744073709551615
-maximum ticks per memcpy = 0
-total memcpy ticks = 0
-total memcpy bytes = 0
+262148, 4456516, 262144, 68, 4456516, 4456516, 262148, 4456516, 
+average ticks per memcpy = 777755623
+minimum ticks per memcpy = 5067844
+maximum ticks per memcpy = 1625146064
+total memcpy ticks = 6222044984
+total memcpy bytes = 18612572
 
 
